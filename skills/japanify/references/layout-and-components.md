@@ -142,18 +142,23 @@ Show the change: 「前日 2位」, 「初登場」, ↑ ↓ arrows. Label ranks
 <p class="price"><span class="num">1,980</span><span class="yen">円</span><span class="tax">（税込）</span><span class="ship">送料無料</span></p>
 <p class="sub">990円／個（2個）</p>
 <p class="sub">19ポイント（1倍）</p>
-<p class="rating"><span class="stars" aria-label="5点中4.6点">★★★★★</span> 4.6 <span class="count">(43件)</span></p>
+<p class="rating"><span class="stars" style="--rate:4.6" role="img" aria-label="5点中4.6点"></span> 4.6 <span class="count">(43件)</span></p>
 <p class="sub">10/15 12:00までの注文で最短10/16お届け</p>
 ```
 ```css
 /* 楽天市場: number in a Latin font, 円 about 0.58x in bold Japanese, small red lines underneath */
 .price{color:#bf0000;line-height:1}
-.price .num{font:500 24px/1 Roboto,"Helvetica Neue",Arial,sans-serif}        /* 28px on the product page */
+.price .num{font:700 24px/1 "Helvetica Neue",Arial,sans-serif}   /* 28px on the product page; 楽天 loads Roboto 500, system fonts need 700 */
 .price .yen{font-size:14px;font-weight:700;padding:0 4px 0 1px}
 .price .tax{font-size:11px;color:#333}
 .price .ship{font-size:14px;font-weight:700;margin-left:6px}
 .sub{font-size:12px;color:#bf0000;margin:4px 0 0}
 .rating{font-size:12px;color:#f2ab00;font-weight:700}.rating .count{color:#717171;font-weight:400}
+/* fractional stars without glyphs: an SVG star mask over a gold/grey split */
+.stars{display:inline-block;width:5em;height:1em;vertical-align:-.1em;
+  background:linear-gradient(90deg,#f2ab00 calc(var(--rate) / 5 * 100%),#e1e1e1 0);
+  --star:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z'/%3E%3C/svg%3E");
+  -webkit-mask:var(--star) 0 0/1em 1em repeat-x;mask:var(--star) 0 0/1em 1em repeat-x}
 .price-before{font-size:11px;color:#717171;text-decoration:line-through}   /* 通常価格 */
 ```
 

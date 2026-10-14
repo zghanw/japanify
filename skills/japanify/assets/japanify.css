@@ -1,74 +1,92 @@
-/* japanify.css: Japanese web baseline measured from the top 10 Japanese sites (2026-10).
-   Drop in, then override the tokens. Default is dense UI mode; add class="jp-read" for reading mode.
+/* japanify.css: Japanese web baseline measured from the top 10 Japanese websites (2026-10).
+   Drop in, then override the tokens. Three type modes:
+     default        dense UI (portal, EC, data, community): 14px / 1.5
+     .jp-lp         landing page and corporate copy: 16px / 1.75
+     .jp-read       articles and blog posts: 16px / 1.8 to 2.0
    Values and sources: references/benchmarks.md, typography.md, layout-and-components.md */
 
 :root{
   --jp-sans:"Helvetica Neue",Arial,"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",Meiryo,sans-serif;
+  --jp-ud:"Hiragino Kaku Gothic ProN","Hiragino Sans","BIZ UDPGothic","Noto Sans JP",Meiryo,sans-serif;
   --jp-serif:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Noto Serif JP",serif;
+  --jp-mark-font:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",Meiryo,sans-serif; /* ○ △ × ◎ */
   --jp-ink:#333;            /* body text: #333 / #444 / #272727 on the top sites, not #000 */
   --jp-ink-sub:#666;        /* secondary text that still passes 4.5:1 */
   --jp-ink-meta:#767676;    /* timestamps, ※ notes */
   --jp-link:#1d3994;        /* Yahoo! JAPAN link blue; tenki #0b5daa, livedoor #2355a5 */
-  --jp-link-visited:#6f4fd2; /* Yahoo! JAPAN mobile; the desktop top keeps one color */
-  --jp-brand:#0061ca;       /* replace with the brand color */
-  --jp-accent:#d7000f;      /* NEW, 必須, sale, price */
+  --jp-link-visited:#6f4fd2;/* Yahoo! JAPAN mobile; the desktop top keeps one color */
+  --jp-brand:#0061ca;       /* replace with the brand color (darken it if white text fails 4.5:1) */
+  --jp-accent:#d7000f;      /* NEW, 必須, sale */
   --jp-price:#bf0000;       /* 楽天市場 price red */
+  --jp-cta:#c84b00;         /* orange CTA darkened to pass 4.5:1 with white text */
   --jp-line:#ddd;
   --jp-bg-sub:#f5f5f5;      /* table heads, info panels, footer */
-  --jp-sat:#0096ff;         /* 土 */
-  --jp-sun:#ff0000;         /* 日・祝 */
-  --jp-temp-high:#ff0000;
-  --jp-temp-low:#0096ff;
+  --jp-sat:#0062d6;         /* 土: tenki.jp uses #0096ff, darkened here for 4.5:1 on small digits */
+  --jp-sun:#d7000f;         /* 日・祝: tenki.jp uses #ff0000, darkened for 4.5:1 */
+  --jp-temp-high:#d7000f;
+  --jp-temp-low:#0062d6;
   --jp-radius:4px;
-  --jp-page:1080px;         /* fixed desktop page width, 950 to 1,100px on the top sites */
+  --jp-page:1080px;         /* fixed desktop page width, 950 to 1,140px on the top sites */
   --jp-rail:300px;          /* side column, 288 to 336px */
+  --jp-sticky-offset:0px;   /* set to the sticky header height so #anchors are not hidden */
 }
 
-/* base */
+/* base (zero-specificity element rules so component classes always win) */
 *,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:var(--jp-sticky-offset)}
 body{
   margin:0;font-family:var(--jp-sans);font-size:14px;line-height:1.5;color:var(--jp-ink);background:#fff;
-  letter-spacing:0;line-break:strict;overflow-wrap:anywhere;text-autospace:normal;
+  letter-spacing:0;line-break:strict;overflow-wrap:anywhere;
   -webkit-font-smoothing:antialiased;
 }
-a{color:var(--jp-link);text-decoration:none}
-a:visited{color:var(--jp-link-visited)}
-a:hover{text-decoration:underline}
-.jp-read a{text-decoration:underline}
-img{max-width:100%;height:auto;vertical-align:middle}
-em,i,cite{font-style:normal;font-weight:700}
-small,.jp-note{font-size:12px;color:var(--jp-ink-meta)}
+:where(a){color:var(--jp-link);text-decoration:none}
+:where(a:visited){color:var(--jp-link-visited)}
+:where(a:hover){text-decoration:underline}
+:where(img){max-width:100%;height:auto;vertical-align:middle}
+:where(em,i,cite){font-style:normal;font-weight:700}
+:where(small),.jp-note{font-size:12px;color:var(--jp-ink-meta)}
+.jp-mark{font-family:var(--jp-mark-font)}
 :focus-visible{outline:2px solid #1a1a1a;outline-offset:2px;box-shadow:0 0 0 4px #ffd43d}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
 /* headings: bold, palt only here, marked with bars or rules */
-h1,h2,h3,h4{margin:0 0 10px;font-weight:700;line-height:1.4;font-feature-settings:"palt";letter-spacing:.04em;word-break:auto-phrase;text-wrap:balance}
-h1{font-size:24px}h2{font-size:20px}h3{font-size:16px}h4{font-size:14px}
+:where(h1,h2,h3,h4){margin:0 0 10px;font-weight:700;line-height:1.4;font-feature-settings:"palt";letter-spacing:.04em;word-break:auto-phrase;text-wrap:balance}
+:where(h1){font-size:24px}:where(h2){font-size:20px}:where(h3){font-size:16px}:where(h4){font-size:14px}
 .jp-h-bar{border-left:6px solid var(--jp-brand);padding:2px 0 2px 10px}
 .jp-h-rule{border-bottom:3px solid var(--jp-brand);padding-bottom:6px}
 .jp-h-strip{padding:6px 10px;background:var(--jp-bg-sub);font-size:14px}
+.jp-eyebrow{display:block;margin-bottom:4px;color:var(--jp-brand);font:700 12px/1.2 "Helvetica Neue",Arial,sans-serif;letter-spacing:.15em}
 
-/* reading mode (articles, blogs, long LP copy): Yahoo! News, livedoor News, TRILL, note */
-.jp-read{font-size:16px;line-height:2}
+/* landing page and corporate mode */
+.jp-lp{font-size:16px;line-height:1.75}
+.jp-lp :where(h1){font-size:clamp(24px,4vw,36px);line-height:1.4}
+.jp-lp :where(h2){font-size:clamp(22px,3vw,28px)}
+.jp-lp :where(h3){font-size:18px}
+
+/* reading mode (articles, blogs): Yahoo! News, livedoor News, TRILL 16px / 1.8; note 18px / 2.0 */
+.jp-read{font-size:16px;line-height:1.85}
 .jp-read p{margin:0 0 1.75em;max-inline-size:40ic}
-.jp-read h2{font-size:22px;margin:2.5em 0 .75em}
-.jp-read h3{font-size:18px;margin:2em 0 .5em}
+.jp-read a{text-decoration:underline}
+.jp-read :where(h2){font-size:22px;margin:2.5em 0 .75em}
+.jp-read :where(h3){font-size:18px;margin:2em 0 .5em}
 .jp-read blockquote{margin:0 0 1.75em;padding:20px 28px;background:#f5f8fa;font-size:15px}
-@media (min-width:768px){.jp-read h2{font-size:24px}.jp-read h3{font-size:20px}}
-.jp-read--large{font-size:18px} /* note.com desktop; Yahoo! News, livedoor News and TRILL stay at 16px */
+.jp-read--large{font-size:18px;line-height:2}
+@media (min-width:768px){.jp-read :where(h2){font-size:24px}.jp-read :where(h3){font-size:20px}}
 
 /* layout */
 .jp-page{width:min(100% - 32px,var(--jp-page));margin-inline:auto}
 .jp-cols{display:grid;grid-template-columns:minmax(0,1fr) var(--jp-rail);gap:20px}
 @media (max-width:767px){.jp-cols{grid-template-columns:1fr}}
 .jp-section{margin-block:0 40px}
+.jp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.jp-scroll-hint{display:none;font-size:12px;color:var(--jp-ink-meta)}
+@media (max-width:767px){.jp-scroll-hint{display:block}}   /* 横にスクロールできます */
 
 /* numbers, units, prices */
 .jp-num{font-family:"Helvetica Neue",Arial,sans-serif;font-feature-settings:"tnum"}
 .jp-unit{font-size:.75em;margin-inline-start:.1em}
-/* 楽天市場: Latin numerals, 円 at about 0.58x in bold Japanese type */
-.jp-price{color:var(--jp-price);font:500 24px/1 Roboto,"Helvetica Neue",Arial,sans-serif}
+.jp-price{color:var(--jp-price);font:700 24px/1 "Helvetica Neue",Arial,sans-serif} /* 楽天 uses Roboto 500 as a web font; system fallbacks need 700 */
 .jp-price .jp-yen{font:700 .58em/1 var(--jp-sans);margin-inline-start:.05em}
 .jp-price .jp-tax{font:400 11px/1 var(--jp-sans);color:var(--jp-ink);margin-inline-start:4px}
 .jp-high{color:var(--jp-temp-high)}.jp-low{color:var(--jp-temp-low)}
@@ -78,23 +96,23 @@ h1{font-size:24px}h2{font-size:20px}h3{font-size:16px}h4{font-size:14px}
 .jp-chip{display:inline-block;padding:1px 6px;font-size:11px;font-weight:700;line-height:1.5;border-radius:2px;vertical-align:middle;white-space:nowrap}
 .jp-chip--red{background:var(--jp-accent);color:#fff}
 .jp-chip--outline{border:1px solid var(--jp-accent);color:var(--jp-accent);background:#fff}
-.jp-chip--grey{background:#eee;color:#666;font-weight:400}
-.jp-new{color:var(--jp-accent);font-size:11px;font-weight:700}
+.jp-chip--grey{background:#eee;color:#555;font-weight:400}
+.jp-new{color:var(--jp-accent);font-size:11px;font-weight:700;margin-inline-start:6px;white-space:nowrap}
 
-/* お知らせ list */
+/* お知らせ list: <li><time/><span class="jp-chip"/><a>title<span class="jp-new">NEW</span></a></li> */
 .jp-news{list-style:none;margin:0;padding:0}
 .jp-news li{display:flex;gap:12px;align-items:baseline;padding:10px 0;border-bottom:1px dotted #ccc}
 .jp-news time{flex-shrink:0;color:var(--jp-ink-sub);font-size:13px;font-feature-settings:"tnum"}
 .jp-news .jp-chip{flex-shrink:0;min-width:5.5em;text-align:center}
-@media (max-width:599px){.jp-news li{flex-wrap:wrap;gap:4px 8px}.jp-news a{flex-basis:100%}}
+@media (max-width:599px){.jp-news li{flex-wrap:wrap;gap:4px 8px}.jp-news li>a{flex-basis:100%}}
 
 /* ranking */
 .jp-rank{list-style:none;margin:0;padding:0;counter-reset:r}
 .jp-rank li{counter-increment:r;display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid #eee}
-.jp-rank li::before{content:counter(r);flex-shrink:0;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#999;color:#fff;font-size:13px;font-weight:700}
-.jp-rank li:nth-child(1)::before{background:#d4a017}
-.jp-rank li:nth-child(2)::before{background:#a5a9b0}
-.jp-rank li:nth-child(3)::before{background:#b87333}
+.jp-rank li::before{content:counter(r);flex-shrink:0;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#8c8c8c;color:#fff;font-size:13px;font-weight:700}
+.jp-rank li:nth-child(1)::before{background:#b8860b}
+.jp-rank li:nth-child(2)::before{background:#8a9097}
+.jp-rank li:nth-child(3)::before{background:#a0522d}
 
 /* tabs */
 .jp-tabs{display:flex;border-bottom:2px solid var(--jp-brand)}
@@ -102,14 +120,16 @@ h1{font-size:24px}h2{font-size:20px}h3{font-size:16px}h4{font-size:14px}
 .jp-tabs [aria-selected=true]{background:var(--jp-brand);color:#fff}
 
 /* buttons */
-.jp-btn{display:inline-flex;align-items:center;justify-content:center;gap:.4em;min-height:44px;padding:8px 24px;border:1px solid transparent;border-radius:var(--jp-radius);font:700 15px/1.3 var(--jp-sans);font-feature-settings:"palt";text-decoration:none;cursor:pointer}
-.jp-btn--primary{background:var(--jp-brand);color:#fff}
-.jp-btn--cta{background:#ff6a00;color:#fff}       /* 資料請求, 無料で試す */
-.jp-btn--cart{background:var(--jp-price);color:#fff;min-height:48px;min-width:192px} /* 楽天市場 かごに追加 */
-.jp-btn--booking{background:linear-gradient(#ffaa00,#ff9600);color:#fff;border-color:#f3980a} /* 食べログ 予約する */
-.jp-btn--line{background:#06c755;color:#fff}
-.jp-btn--ghost{background:#fff;color:var(--jp-ink);border-color:#bbb}
-.jp-btn small{display:block;font-size:11px;font-weight:400}
+.jp-btn{display:inline-flex;align-items:center;justify-content:center;gap:.4em;min-height:44px;padding:8px 24px;border:1px solid transparent;border-radius:var(--jp-radius);font:700 15px/1.3 var(--jp-sans);font-feature-settings:"palt";text-decoration:none;cursor:pointer;color:var(--jp-ink);background:#fff}
+.jp-btn:hover{text-decoration:none;filter:brightness(.95)}
+.jp-btn:has(small){flex-direction:column;gap:0}
+.jp-btn small{display:block;font-size:11px;font-weight:400;color:inherit}
+.jp-btn--primary,.jp-btn--primary:visited{background:var(--jp-brand);color:#fff}
+.jp-btn--cta,.jp-btn--cta:visited{background:var(--jp-cta);color:#fff}           /* 資料請求, 無料で試す */
+.jp-btn--cart,.jp-btn--cart:visited{background:var(--jp-price);color:#fff;min-height:48px;min-width:192px} /* 楽天市場 かごに追加 */
+.jp-btn--booking,.jp-btn--booking:visited{background:#c04f00;color:#fff}         /* 予約する; 食べログ's #ffaa00 gradient fails 4.5:1 */
+.jp-btn--line,.jp-btn--line:visited{background:#06c755;color:#fff}               /* LINE brand color is mandated; keep the label 14px+ bold */
+.jp-btn--ghost,.jp-btn--ghost:visited{background:#fff;color:var(--jp-ink);border-color:#bbb}
 .jp-more{font-size:13px}
 .jp-more::after{content:" ›"}
 
@@ -121,23 +141,32 @@ h1{font-size:24px}h2{font-size:20px}h3{font-size:16px}h4{font-size:14px}
 .jp-data{width:100%;table-layout:fixed;border-collapse:collapse;font-size:12px;text-align:center}
 .jp-data th,.jp-data td{border:1px solid #ccc;padding:4px 2px}
 .jp-data thead th{background:#f4f4ee}
-.jp-data .is-past{color:#bbb}
+.jp-data .is-past{color:#999}
+.jp-data td,.jp-hours td{font-family:var(--jp-mark-font)}
 
 /* breadcrumb */
 .jp-breadcrumb{display:flex;flex-wrap:wrap;gap:4px;margin:0;padding:8px 0;list-style:none;font-size:12px;color:var(--jp-ink-sub)}
 .jp-breadcrumb li+li::before{content:"＞";margin-inline-end:4px;color:#999}
 
-/* forms */
-.jp-form input,.jp-form select,.jp-form textarea{font:16px/1.4 var(--jp-sans);padding:10px;border:1px solid #bbb;border-radius:var(--jp-radius);max-width:100%}
+/* forms: <form class="jp-form h-adr"> with .jp-req / .jp-opt badges */
+.jp-form input:not([type=checkbox]):not([type=radio]),.jp-form select,.jp-form textarea{font:16px/1.4 var(--jp-sans);padding:10px;border:1px solid #bbb;border-radius:var(--jp-radius);max-width:100%;color:var(--jp-ink);background:#fff}
 .jp-req,.jp-opt{display:inline-block;margin-inline-start:.5em;padding:.1em .5em;font-size:11px;font-weight:700;line-height:1.4;border-radius:2px;vertical-align:.1em}
 .jp-req{color:#fff;background:var(--jp-accent)}
 .jp-opt{color:#555;background:#f2f2f2;border:1px solid #bbb}
 .jp-error{color:var(--jp-accent);font-size:13px}
 .jp-form [aria-invalid=true]{border-color:var(--jp-accent);background:#fff0f0}
+.jp-error-summary{padding:12px 16px;border:2px solid var(--jp-accent);background:#fff0f0;color:var(--jp-accent);font-weight:700}
+.jp-form-table{width:100%;border-collapse:collapse}
+.jp-form-table th{width:30%;padding:16px;background:var(--jp-bg-sub);border:1px solid var(--jp-line);text-align:left;vertical-align:top;font-weight:700}
+.jp-form-table td{padding:16px;border:1px solid var(--jp-line)}
+@media (max-width:599px){.jp-form-table th,.jp-form-table td{display:block;width:auto}.jp-form-table th{border-bottom:0;padding-bottom:8px}}
+.jp-steps{display:flex;justify-content:center;gap:4px;margin:0 0 24px;padding:0;list-style:none;font-size:13px}
+.jp-steps li{padding:6px 16px;background:#eee;color:#555}
+.jp-steps [aria-current=step]{background:var(--jp-brand);color:#fff;font-weight:700}  /* 入力 → 確認 → 完了 */
 
 /* footer */
 .jp-footer{background:var(--jp-bg-sub);font-size:12px;color:#555;padding:24px 16px;text-align:center}
 .jp-footer nav{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 16px;margin-bottom:12px}
-.jp-footer a{color:#555}
+.jp-footer a,.jp-footer a:visited{color:#555}
 .jp-footer address{font-style:normal;margin-bottom:8px}
-.jp-pagetop{position:fixed;right:16px;bottom:16px;width:48px;height:48px;display:grid;place-items:center;background:#333;color:#fff;font-size:10px;line-height:1.1;text-align:center;text-decoration:none;border-radius:4px}
+.jp-pagetop,.jp-pagetop:visited{position:fixed;right:16px;bottom:16px;width:48px;height:48px;display:grid;place-items:center;background:#333;color:#fff;font-size:10px;line-height:1.1;text-align:center;text-decoration:none;border-radius:4px}
