@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "japanify",
+  "description": "Japanese frontend conventions measured from the top 10 Japanese websites: typography, density, layout, components, forms, copy and trust pages.",
+  "version": "1.0.0",
+  "author": {
+    "name": "zghanw",
+    "url": "https://github.com/zghanw"
+  },
+  "homepage": "https://github.com/zghanw/japanify",
+  "repository": "https://github.com/zghanw/japanify",
+  "license": "MIT",
+  "keywords": ["japanese", "japan", "frontend", "localization", "i18n", "design-system", "ui", "ux"]
+}

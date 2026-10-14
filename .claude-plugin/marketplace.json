@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace-manifest.json",
+  "name": "japanify",
+  "owner": {
+    "name": "zghanw",
+    "url": "https://github.com/zghanw"
+  },
+  "description": "Build or convert websites into the UI/UX that Japanese users expect.",
+  "plugins": [
+    {
+      "name": "japanify",
+      "source": "./",
+      "description": "Japanese frontend conventions measured from the top 10 Japanese websites: typography, density, layout, components, forms, copy and trust pages.",
+      "license": "MIT",
+      "keywords": ["japanese", "japan", "frontend", "localization", "i18n", "design-system", "ui", "ux"]
+    }
+  ]
+}

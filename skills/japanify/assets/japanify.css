@@ -1,0 +1,143 @@
+/* japanify.css: Japanese web baseline measured from the top 10 Japanese sites (2026-10).
+   Drop in, then override the tokens. Default is dense UI mode; add class="jp-read" for reading mode.
+   Values and sources: references/benchmarks.md, typography.md, layout-and-components.md */
+
+:root{
+  --jp-sans:"Helvetica Neue",Arial,"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",Meiryo,sans-serif;
+  --jp-serif:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Noto Serif JP",serif;
+  --jp-ink:#333;            /* body text: #333 / #444 / #272727 on the top sites, not #000 */
+  --jp-ink-sub:#666;        /* secondary text that still passes 4.5:1 */
+  --jp-ink-meta:#767676;    /* timestamps, ※ notes */
+  --jp-link:#1d3994;        /* Yahoo! JAPAN link blue; tenki #0b5daa, livedoor #2355a5 */
+  --jp-link-visited:#6f4fd2; /* Yahoo! JAPAN mobile; the desktop top keeps one color */
+  --jp-brand:#0061ca;       /* replace with the brand color */
+  --jp-accent:#d7000f;      /* NEW, 必須, sale, price */
+  --jp-price:#bf0000;       /* 楽天市場 price red */
+  --jp-line:#ddd;
+  --jp-bg-sub:#f5f5f5;      /* table heads, info panels, footer */
+  --jp-sat:#0096ff;         /* 土 */
+  --jp-sun:#ff0000;         /* 日・祝 */
+  --jp-temp-high:#ff0000;
+  --jp-temp-low:#0096ff;
+  --jp-radius:4px;
+  --jp-page:1080px;         /* fixed desktop page width, 950 to 1,100px on the top sites */
+  --jp-rail:300px;          /* side column, 288 to 336px */
+}
+
+/* base */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{
+  margin:0;font-family:var(--jp-sans);font-size:14px;line-height:1.5;color:var(--jp-ink);background:#fff;
+  letter-spacing:0;line-break:strict;overflow-wrap:anywhere;text-autospace:normal;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--jp-link);text-decoration:none}
+a:visited{color:var(--jp-link-visited)}
+a:hover{text-decoration:underline}
+.jp-read a{text-decoration:underline}
+img{max-width:100%;height:auto;vertical-align:middle}
+em,i,cite{font-style:normal;font-weight:700}
+small,.jp-note{font-size:12px;color:var(--jp-ink-meta)}
+:focus-visible{outline:2px solid #1a1a1a;outline-offset:2px;box-shadow:0 0 0 4px #ffd43d}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* headings: bold, palt only here, marked with bars or rules */
+h1,h2,h3,h4{margin:0 0 10px;font-weight:700;line-height:1.4;font-feature-settings:"palt";letter-spacing:.04em;word-break:auto-phrase;text-wrap:balance}
+h1{font-size:24px}h2{font-size:20px}h3{font-size:16px}h4{font-size:14px}
+.jp-h-bar{border-left:6px solid var(--jp-brand);padding:2px 0 2px 10px}
+.jp-h-rule{border-bottom:3px solid var(--jp-brand);padding-bottom:6px}
+.jp-h-strip{padding:6px 10px;background:var(--jp-bg-sub);font-size:14px}
+
+/* reading mode (articles, blogs, long LP copy): Yahoo! News, livedoor News, TRILL, note */
+.jp-read{font-size:16px;line-height:2}
+.jp-read p{margin:0 0 1.75em;max-inline-size:40ic}
+.jp-read h2{font-size:22px;margin:2.5em 0 .75em}
+.jp-read h3{font-size:18px;margin:2em 0 .5em}
+.jp-read blockquote{margin:0 0 1.75em;padding:20px 28px;background:#f5f8fa;font-size:15px}
+@media (min-width:768px){.jp-read h2{font-size:24px}.jp-read h3{font-size:20px}}
+.jp-read--large{font-size:18px} /* note.com desktop; Yahoo! News, livedoor News and TRILL stay at 16px */
+
+/* layout */
+.jp-page{width:min(100% - 32px,var(--jp-page));margin-inline:auto}
+.jp-cols{display:grid;grid-template-columns:minmax(0,1fr) var(--jp-rail);gap:20px}
+@media (max-width:767px){.jp-cols{grid-template-columns:1fr}}
+.jp-section{margin-block:0 40px}
+
+/* numbers, units, prices */
+.jp-num{font-family:"Helvetica Neue",Arial,sans-serif;font-feature-settings:"tnum"}
+.jp-unit{font-size:.75em;margin-inline-start:.1em}
+/* 楽天市場: Latin numerals, 円 at about 0.58x in bold Japanese type */
+.jp-price{color:var(--jp-price);font:500 24px/1 Roboto,"Helvetica Neue",Arial,sans-serif}
+.jp-price .jp-yen{font:700 .58em/1 var(--jp-sans);margin-inline-start:.05em}
+.jp-price .jp-tax{font:400 11px/1 var(--jp-sans);color:var(--jp-ink);margin-inline-start:4px}
+.jp-high{color:var(--jp-temp-high)}.jp-low{color:var(--jp-temp-low)}
+.jp-sat{color:var(--jp-sat)}.jp-sun,.jp-holiday{color:var(--jp-sun)}
+
+/* badges */
+.jp-chip{display:inline-block;padding:1px 6px;font-size:11px;font-weight:700;line-height:1.5;border-radius:2px;vertical-align:middle;white-space:nowrap}
+.jp-chip--red{background:var(--jp-accent);color:#fff}
+.jp-chip--outline{border:1px solid var(--jp-accent);color:var(--jp-accent);background:#fff}
+.jp-chip--grey{background:#eee;color:#666;font-weight:400}
+.jp-new{color:var(--jp-accent);font-size:11px;font-weight:700}
+
+/* お知らせ list */
+.jp-news{list-style:none;margin:0;padding:0}
+.jp-news li{display:flex;gap:12px;align-items:baseline;padding:10px 0;border-bottom:1px dotted #ccc}
+.jp-news time{flex-shrink:0;color:var(--jp-ink-sub);font-size:13px;font-feature-settings:"tnum"}
+.jp-news .jp-chip{flex-shrink:0;min-width:5.5em;text-align:center}
+@media (max-width:599px){.jp-news li{flex-wrap:wrap;gap:4px 8px}.jp-news a{flex-basis:100%}}
+
+/* ranking */
+.jp-rank{list-style:none;margin:0;padding:0;counter-reset:r}
+.jp-rank li{counter-increment:r;display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid #eee}
+.jp-rank li::before{content:counter(r);flex-shrink:0;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#999;color:#fff;font-size:13px;font-weight:700}
+.jp-rank li:nth-child(1)::before{background:#d4a017}
+.jp-rank li:nth-child(2)::before{background:#a5a9b0}
+.jp-rank li:nth-child(3)::before{background:#b87333}
+
+/* tabs */
+.jp-tabs{display:flex;border-bottom:2px solid var(--jp-brand)}
+.jp-tabs a,.jp-tabs button{flex:1;padding:10px 4px;border:0;background:#eef1f5;color:var(--jp-brand);font:700 14px/1.3 var(--jp-sans);text-align:center;text-decoration:none;cursor:pointer}
+.jp-tabs [aria-selected=true]{background:var(--jp-brand);color:#fff}
+
+/* buttons */
+.jp-btn{display:inline-flex;align-items:center;justify-content:center;gap:.4em;min-height:44px;padding:8px 24px;border:1px solid transparent;border-radius:var(--jp-radius);font:700 15px/1.3 var(--jp-sans);font-feature-settings:"palt";text-decoration:none;cursor:pointer}
+.jp-btn--primary{background:var(--jp-brand);color:#fff}
+.jp-btn--cta{background:#ff6a00;color:#fff}       /* 資料請求, 無料で試す */
+.jp-btn--cart{background:var(--jp-price);color:#fff;min-height:48px;min-width:192px} /* 楽天市場 かごに追加 */
+.jp-btn--booking{background:linear-gradient(#ffaa00,#ff9600);color:#fff;border-color:#f3980a} /* 食べログ 予約する */
+.jp-btn--line{background:#06c755;color:#fff}
+.jp-btn--ghost{background:#fff;color:var(--jp-ink);border-color:#bbb}
+.jp-btn small{display:block;font-size:11px;font-weight:400}
+.jp-more{font-size:13px}
+.jp-more::after{content:" ›"}
+
+/* tables */
+.jp-info{width:100%;border-collapse:collapse}
+.jp-info th{width:28%;padding:12px;background:var(--jp-bg-sub);border:1px solid var(--jp-line);text-align:left;vertical-align:top}
+.jp-info td{padding:12px;border:1px solid var(--jp-line)}
+@media (max-width:599px){.jp-info th,.jp-info td{display:block;width:auto}.jp-info th{border-bottom:0}}
+.jp-data{width:100%;table-layout:fixed;border-collapse:collapse;font-size:12px;text-align:center}
+.jp-data th,.jp-data td{border:1px solid #ccc;padding:4px 2px}
+.jp-data thead th{background:#f4f4ee}
+.jp-data .is-past{color:#bbb}
+
+/* breadcrumb */
+.jp-breadcrumb{display:flex;flex-wrap:wrap;gap:4px;margin:0;padding:8px 0;list-style:none;font-size:12px;color:var(--jp-ink-sub)}
+.jp-breadcrumb li+li::before{content:"＞";margin-inline-end:4px;color:#999}
+
+/* forms */
+.jp-form input,.jp-form select,.jp-form textarea{font:16px/1.4 var(--jp-sans);padding:10px;border:1px solid #bbb;border-radius:var(--jp-radius);max-width:100%}
+.jp-req,.jp-opt{display:inline-block;margin-inline-start:.5em;padding:.1em .5em;font-size:11px;font-weight:700;line-height:1.4;border-radius:2px;vertical-align:.1em}
+.jp-req{color:#fff;background:var(--jp-accent)}
+.jp-opt{color:#555;background:#f2f2f2;border:1px solid #bbb}
+.jp-error{color:var(--jp-accent);font-size:13px}
+.jp-form [aria-invalid=true]{border-color:var(--jp-accent);background:#fff0f0}
+
+/* footer */
+.jp-footer{background:var(--jp-bg-sub);font-size:12px;color:#555;padding:24px 16px;text-align:center}
+.jp-footer nav{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 16px;margin-bottom:12px}
+.jp-footer a{color:#555}
+.jp-footer address{font-style:normal;margin-bottom:8px}
+.jp-pagetop{position:fixed;right:16px;bottom:16px;width:48px;height:48px;display:grid;place-items:center;background:#333;color:#fff;font-size:10px;line-height:1.1;text-align:center;text-decoration:none;border-radius:4px}
