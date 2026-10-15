@@ -34,7 +34,7 @@ Buttons never use 〜してください. Avoid overusing 〜させていただ�
 - 【】 tags titles and emphasis: 【重要】【期間限定】【2026年版】【送料無料】.
 - ※ marks caveats in small text right under the claim: ※価格はすべて税込です。 Use ※1 ※2 for numbered footnotes. Any No.1 or percentage claim needs a ※ note with the survey source and date.
 - 〜 (wave dash) for ranges: 10:00〜18:00, 10月14日（水）〜16日（金）.
-- No half-width spaces between Japanese and Latin or digits. Write PDFファイル, 3つの理由. Let CSS `text-autospace` add the gap.
+- Inside a phrase, no half-width space between Japanese and Latin or digits: PDFファイル, Slackと連携, 3つの理由. Between phrases in headlines and listings a half-width space is a separator and is fine: サイゼリヤ 値上げを発表, 1LDK 静岡駅 徒歩8分.
 - Exclamation marks: none in UI, at most one full-width ！ in a marketing headline.
 - Do not address the reader as あなた or say 私たちの. Write アカウント設定, not あなたのアカウント設定.
 - Katakana loanwords keep the long-vowel mark: ユーザー, サーバー, メンバー, カテゴリー.
@@ -89,6 +89,7 @@ Holidays: the Cabinet Office CSV (syukujitsu.csv) or the `@holiday-jp/holiday_jp
 - Consumer prices must show the tax-inclusive total (総額表示, mandatory since April 2021): `1,980円（税込）` or `1,800円（税込1,980円）`. A tax-exclusive price alone is not allowed for consumers. The word 税込 is not itself required: 楽天市場 prints bare prices that already include tax. For a new site, write （税込） or one clear note (※表示価格はすべて税込です) so users do not have to guess. B2B price lists may show 税抜 / 税別 with a clear label.
 - Retail and EC write `1,980円`; fashion and brand sites may write `¥1,980`; restaurant budgets use the full-width ￥3,000～￥3,999. Digits are half-width with commas.
 - Price emphasis: the number is large, in a Latin font (Roboto or Arial), and 円 is about 0.6x its size in bold Japanese type. EC price color is red (#bf0000 on 楽天市場, #e64c30 on 食べログ).
+- Tax rates: 10% standard, 8% reduced rate (軽減税率) for food and non-alcoholic drinks (retail, take-away and delivery) and for newspaper subscriptions delivered twice a week or more. Alcohol and eating in at a restaurant are 10%. A tea or food shop therefore shows 8% tax-inclusive prices. Receipts and B2B invoices (インボイス制度) list each rate separately with the 登録番号 (T + 13 digits).
 - Show shipping on the same line or right below: 送料無料 / 送料別 / 送料込み / ◯円以上で送料無料.
 - Points: ポイント10倍, 99ポイント獲得 next to the price on EC.
 - `Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' })` returns a full-width ￥ (U+FFE5). Use `currencyDisplay: 'name'` for 1,980円, or format the number and append 円.
@@ -98,6 +99,13 @@ const yen = (n) => `${n.toLocaleString('ja-JP')}円`;
 const taxIn = (n, rate = 0.1) => Math.floor(n * (1 + rate)); // 8% for food and drink, newspapers
 // markup: <span class="price">1,980<small>円（税込）</small></span>
 ```
+
+## Page titles and meta
+
+- `<title>`: page name first, site name last, separated by a full-width ｜ or ` | `: `料金プラン｜はたらくログ`. Top page: `はたらくログ｜勤怠管理をもっとかんたんに`.
+- Official brand and shop sites often prefix 【公式】 in the title so they stand out in search results: `【公式】茶葉の森｜静岡・牧之原の日本茶通販`.
+- `meta description`: 80 to 120 full-width characters, です・ます, with the area and the main service for local businesses (横浜市中区の歯科医院です。日本大通り駅から徒歩3分…).
+- `<meta name="format-detection" content="telephone=no">` stops iOS from turning every number into a phone link; then mark real numbers with `<a href="tel:0451234567">045-123-4567</a>`.
 
 ## Large numbers
 

@@ -44,10 +44,21 @@ Media, SNS, search and app-like services must tell users what their analytics an
 - For shops: 店長 or staff photos with a greeting (店長あいさつ), a business-day calendar (営業日カレンダー) with closed days in red, shipping and payment guide (ご利用ガイド).
 - For B2B: domestic data center (国内データセンター), SSO, security checklist support (セキュリティチェックシート対応), invoice payment (請求書払い).
 
+## Claims and industry rules
+
+These laws decide what a page may say. An agent building a demo or a new product must not invent proof.
+
+| Law | Applies to | What it means for the page |
+|---|---|---|
+| 景品表示法 (misleading representations, stealth marketing) | Every commercial site | Numbers such as 導入社数, 継続率, 満足度, No.1, 最安 need a real source and a ※ note with survey name, period and sample. Client logos, reviews, awards and certifications (Pマーク, ISMS) must be real. Sponsored content carries 広告 or PR. On demos, label all of it as sample data. 二重価格 (crossed-out 通常価格) only if that price was really charged for a meaningful period. |
+| 医療広告ガイドライン (医療法) | Clinics, dental, hospitals, 美容医療 | No patient testimonials or 口コミ, no star ratings, no before/after photos without full treatment details, no superlatives (日本一, 最先端, 絶対) and no comparisons with other clinics. Show 標榜科目, hours, access and the doctor's qualifications. 自由診療 prices must come with the treatment content, typical period and count, and main risks and side effects. |
+| 薬機法 (pharmaceutical and medical device law) | Food, tea, supplements, cosmetics, health goods | No efficacy or medical claims for food and cosmetics (痩せる, 血圧が下がる, 治る, シミが消える). Describe taste, origin, ingredients, production and how to enjoy it. |
+| 特定商取引法 | Online sales to consumers | 特定商取引法に基づく表記 page; final confirmation screen with total, delivery, payment and cancellation terms. |
+
 ## Payments and identity
 
 - Card brand row must include JCB. Common methods: クレジットカード (VISA, Mastercard, JCB, AMEX, Diners), PayPay, 楽天ペイ, d払い, au PAY, メルペイ, Amazon Pay, Apple Pay, コンビニ払い, 銀行振込, 代金引換 (state the 手数料), 後払い (NP後払い, Paidy).
-- LINE is the default login and share channel (over 100M domestic users). Login button: background #06C755, white text, label 「LINEでログイン」, unmodified LINE icon. Shop and clinic sites add a LINE 友だち追加 button or QR code with a coupon incentive.
+- LINE is the default login and share channel (over 100M domestic users). Login button: background #06C755, white text, label 「LINEでログイン」, unmodified LINE icon. The brand green with white text is about 2.3:1; LINE mandates it, so keep the label 14px or larger and bold. Shop and clinic sites add a LINE 友だち追加 button or QR code with a coupon incentive.
 - Share row on media and blogs: X (ポスト), Facebook, はてなブックマーク, LINE (LINEで送る). On mobile, prefer `navigator.share`.
 - Desktop pages often show a 「スマートフォンでアクセス」 QR code.
 

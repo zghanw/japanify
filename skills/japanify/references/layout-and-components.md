@@ -11,16 +11,24 @@ Page recipes and component CSS taken from the measured sites (benchmarks.md). Pi
 | Product page | 楽天市場 item | 950 to 1,000px, 2 columns | Dense, price large | Gallery, title, price, cart button |
 | Article / blog | note, Ameba, livedoor Blog, TRILL | 620 to 740px column (+ 300px rail on blogs) | Reading, 16 to 18px / 1.8 to 2.0 | Title, date, author, first paragraph |
 | Data / utility | tenki.jp, ウェザーニュース | Fixed 1,048 to 1,070px, main + 300 to 336px side | Dense, tables at 12px | The main data table or map |
-| Corporate / B2B LP | docomo, freee, SmartHR, Sansan | Max 1,100 to 1,220px | Mixed: 14 to 16px body, 1.6 to 1.8 | Hero with 2 CTAs + trust numbers |
-| Local business | 食べログ store pages, clinics, salons | 960 to 1,100px | Dense, 13 to 14px | Name, rating, 予約 button, access and hours |
+| Corporate / B2B LP | docomo, freee, SmartHR, Sansan | Max 1,100 to 1,220px | LP mode (`.jp-lp`): 15 to 16px / 1.7 to 1.8 | Hero with 2 CTAs + trust numbers, 10 to 40 links |
+| Local business listing | 食べログ store pages | 980 to 1,140px | Dense, 12 to 14px | Name, score, 予約 button, access and hours |
+| Local business own site | clinics, salons, restaurants, shops | 960 to 1,100px | LP mode, 15 to 16px / 1.7, UD font for medical | Name, 予約 + 電話, hours, access |
 | Community / app | pixiv | Fixed 1,016px | Dense, 14px, pill buttons | Tabs + feed |
 
-Mobile: one column, 16px side padding, body 13 to 14px (16px for reading), sticky header 44 to 56px, bottom-fixed CTA bar on EC and booking pages.
+Mobile: one column, 16px side padding, body 13 to 14px (16px for reading and LP), sticky header 44 to 56px, bottom-fixed CTA bar on EC and booking pages. Set `--jp-sticky-offset` to the header height so anchor links do not land under it.
+
+### Mobile headers
+
+- Portal (Yahoo! JAPAN mobile, livedoor news): 44 to 50px bar with logo, ログイン and a menu icon; full-width search below it; then scrolling category tabs. Headline rows become 16px bold titles with a 45 to 52px thumbnail and a relative time in 11px grey (8時間前), on white cards over #eee.
+- EC: sticky 50px bar with メニュー (drawer), logo, 検索 icon and カート with count; the search field sits below and scrolls away. The desktop left genre nav moves into the drawer, and the 営業日カレンダー moves into ご利用ガイド near the footer. Product pages add a sticky bottom bar with price and カートに入れる.
+- LP and local business: sticky 56px bar with logo, 電話 icon and the main CTA; on clinics and salons a fixed bottom bar with 電話で予約 and WEB予約.
+- ▲TOP appears only after the first screen has scrolled away.
 
 ## Page recipes (top to bottom)
 
 ### Portal / news top
-1. Utility bar (small links: ヘルプ, ログイン, 新規登録) 2. Header: logo, large search box with 検索 button, service icons 3. Category tabs for news (主要 / 経済 / エンタメ / スポーツ / 国内 / 国際 / IT / 科学 / 地域) 4. Headline list with update time, NEW marks and comment counts, thumbnail of the top story 5. Right rail: login box, weather (today and tomorrow, max red, min blue), ranking, notices 6. Left rail or below: service list with small icons 7. Footer with company and legal links.
+1. Utility bar (small links: ヘルプ, ログイン, 新規登録) 2. Header: logo, large search box with 検索 button, service icons 3. Category tabs for news (主要 / 経済 / エンタメ / スポーツ / 国内 / 国際 / IT / 科学 / 地域) 4. Headline list with update time, NEW marks and comment counts, thumbnail of the top story 5. Right rail: login box, weather (today and tomorrow, max red, min blue), ranking, notices 6. Left rail or below: service list with small icons 7. Footer with company and legal links. Regional portals add a 警報・注意報 bar under the header (JMA colors), 交通・運行情報 with problems listed first and 「その他の路線は平常どおり運転しています」, ごみ出し for today, a 地域設定 (お住まいの地域：静岡市葵区 ▼) and a 文字サイズ 標準 / 大 toggle.
 
 ### EC shop top (楽天市場 style shop or own D2C shop)
 1. Thin top bar: 【全国送料無料】5,400円（税込）以上のご注文で送料無料 / 平日15時までのご注文で当日発送 2. Header: logo with tagline, search with example keywords, phone (フリーダイヤル + 受付時間), ログイン, お気に入り, カート with count 3. Category nav 4. Main banner + 2 or 3 sub-banners (seasonal: お歳暮, 母の日, 期間限定) 5. お知らせ list (date, label, title) 6. ランキング 1 to 5 with crown badges, stars and review counts 7. Browse by category, by budget (〜1,000円 / 〜3,000円), by use (ギフト, 自分用) 8. 新着商品 9. Gift options (のし, ラッピング, 金額の入らない明細書) 10. Shop story (こだわり, 店長あいさつ) 11. Customer reviews (age group, prefecture) 12. ご利用ガイド: 支払い方法, 送料, 配送日時指定, 返品・交換 13. 営業日カレンダー (closed days in red) 14. Newsletter or LINE 友だち追加 15. Footer with 特定商取引法に基づく表記 and company address 16. Floating ▲TOP button.
@@ -32,10 +40,14 @@ Breadcrumb (TOP > カテゴリ > 商品) / image gallery with thumbnails / long 
 Breadcrumb / category label / h1 (20px mobile, 28 to 32px desktop) / date (2026年10月14日) and author / eyecatch / table of contents (目次) for long posts / body in reading mode / share row (X, Facebook, はてなブックマーク, LINE) / author box / related articles / comments / ranking in the side rail. Ads labelled PR or 広告.
 
 ### Corporate / B2B SaaS LP
-1. Sticky header with nav, phone + hours, 資料ダウンロード (outline) and 無料で試す (filled) 2. Hero: concrete benefit headline (noun ending), sub-copy, 2 CTAs, trust numbers with ※ footnotes (導入社数, 継続率, 満足度) and a product screenshot 3. Logo wall (導入企業) 4. こんなお悩みありませんか？ with check items or speech bubbles 5. 選ばれる3つの理由 (POINT 01 to 03) 6. 機能一覧 with check marks 7. 導入事例 (company, department, title, 様, result number) 8. 料金プラン table (税込 or 税抜 labelled, ○ / △ / － marks) 9. 導入の流れ STEP 1 to 4 10. セキュリティ・サポート (国内データセンター, ISMS, Pマーク, SSO) 11. よくあるご質問 (Q/A) 12. Closing CTA band with 3 options (資料, 試用, 電話) 13. Form (see forms.md) 14. Footer with 運営会社 and legal links.
+1. Sticky header with nav, phone + hours, 資料ダウンロード (outline) and 無料で試す (filled); 資料ダウンロード opens its own short form (forms.md) 2. Hero: concrete benefit headline (noun ending), sub-copy, 2 CTAs, trust numbers with ※ footnotes (導入社数, 継続率, 満足度) and a product screenshot 3. Logo wall (導入企業) 4. こんなお悩みありませんか？ with check items or speech bubbles 5. 選ばれる3つの理由 (POINT 01 to 03) 6. 機能一覧 with check marks 7. 導入事例 (company, department, title, 様, result number) 8. 料金プラン table (税込 or 税抜 labelled, ○ / △ / － marks) 9. 導入の流れ STEP 1 to 4 10. セキュリティ・サポート (国内データセンター, ISMS, Pマーク, SSO) 11. よくあるご質問 (Q/A) 12. Closing CTA band with 3 options (資料, 試用, 電話) 13. Form (see forms.md) 14. Footer with 運営会社 and legal links.
+
+Section headings on Japanese LPs usually carry a small English eyebrow label above the Japanese title (`.jp-eyebrow`): REASON / 選ばれる理由, FEATURES / 機能一覧, CASE / 導入事例, PRICE / 料金プラン, FLOW / 導入の流れ, FAQ / よくあるご質問. Trust numbers, client logos and certifications must be real; on a demo or a new product, mark them as samples (※掲載している社名・数値はサンプルです).
 
 ### Local business (restaurant, clinic, salon)
-Name + genre + area / rating and review count / 予約 and 電話 buttons / photo strip / info table (店名, ジャンル, 予約・お問い合わせ, 住所 with map, 交通手段 (◯◯駅から徒歩5分), 営業時間, 定休日, 予算, 支払い方法 (カード, 電子マネー, QRコード), 席数, 駐車場, 禁煙・喫煙) / menu with tax-inclusive prices / LINE 友だち追加 / access map. Clinics add a 診療時間 table (days across, 午前 / 午後 rows, ○ / × / ▲ marks with a legend).
+Own sites run looser than the 食べログ listing: LP type mode, 15 to 16px body, photos of the owner or staff, and the first screen limited to name, catch copy, 予約 and 電話, hours and access. Clinics must follow 医療広告ガイドライン (trust-and-legal.md): no ratings, patient reviews, before/after photos or superlatives on the clinic's own site.
+
+Listing-style block order: Name + genre + area / rating and review count (listings and restaurants only) / 予約 and 電話 buttons / photo strip / info table (店名, ジャンル, 予約・お問い合わせ, 住所 with map, 交通手段 (◯◯駅から徒歩5分), 営業時間, 定休日, 予算, 支払い方法 (カード, 電子マネー, QRコード), 席数, 駐車場, 禁煙・喫煙) / menu with tax-inclusive prices / LINE 友だち追加 / access map. Clinics add a 診療時間 table (days across, 午前 / 午後 rows, ○ / × / ▲ marks with a legend).
 
 ### Data / utility
 Search by place or postal code (〒・住所を入力) plus 現在地 / date tabs / main table or map / tabs for granularity (今日・明日, 1時間, 2週間) / related indexes / ranking / news. Freshness stamp on every block (17:00発表, 17:30現在).
@@ -59,7 +71,7 @@ Search by place or postal code (〒・住所を入力) plus 現在地 / date tab
 ```html
 <ul class="news">
   <li><time datetime="2026-10-14">2026.10.14</time><span class="label label--important">重要</span><a href="#">年末年始の営業について</a></li>
-  <li><time datetime="2026-10-01">2026.10.01</time><span class="label">お知らせ</span><a href="#">お歳暮ギフトの早期割引受付を開始しました</a><span class="new">NEW</span></li>
+  <li><time datetime="2026-10-01">2026.10.01</time><span class="label">お知らせ</span><a href="#">お歳暮ギフトの早期割引受付を開始しました<span class="new">NEW</span></a></li>
 </ul>
 ```
 ```css
@@ -171,7 +183,7 @@ Restaurant course price (食べログ): `<del>4,500円</del> <em>4,000</em>円�
 | Context | Primary | Secondary |
 |---|---|---|
 | EC (cart, buy) | 楽天市場: #bf0000 fill, white 14px regular weight, 48px tall, min-width 192px, radius 4px. かごに追加 and 購入手続きへ share the color | White, 1px rgba(0,0,0,.2) border, radius 4px |
-| Booking | 食べログ: orange gradient #ffaa00 to #ff9600, white bold, radius 3px. Red stays reserved for prices and scores | Light gradient #fff to #f4f4f4, 1px #d2d2d2 |
+| Booking | 食べログ: orange gradient #ffaa00 to #ff9600, white bold, radius 3px (fails 4.5:1; use #c04f00 for real text). Red stays reserved for prices and scores | Light gradient #fff to #f4f4f4, 1px #d2d2d2 |
 | B2B lead | Orange fill for 資料請求 / 無料で試す, or brand fill | Outline in brand color |
 | Corporate | Brand fill pill (docomo: #cc0033, radius 70px, min-height 50px) | White pill with 1px #b2b2b2 border |
 | Community / app | Brand fill pill 40px tall (pixiv #0096fa) | rgba(0,0,0,.04) pill |
@@ -227,12 +239,14 @@ Ticket-shaped rows on #fcf0da with a notched or dashed edge, a short title in 14
 ### Clinic hours table (診療時間)
 
 ```html
-<table class="hours"><caption>診療時間（○：診療　▲：14:00まで　×：休診）</caption>
+<table class="hours jp-hours"><caption>診療時間（○：診療　▲：14:00まで　×：休診）</caption>
 <tr><th></th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th class="sat">土</th><th class="sun">日・祝</th></tr>
 <tr><th>9:00〜12:30</th><td>○</td><td>○</td><td>○</td><td>×</td><td>○</td><td>○</td><td>×</td></tr>
 <tr><th>14:30〜18:30</th><td>○</td><td>○</td><td>○</td><td>×</td><td>○</td><td>▲</td><td>×</td></tr>
 </table>
 ```
+
+Put ○ △ × in a Japanese-first font (`.jp-hours td` in japanify.css does this); under a Latin-first stack they render small. Wide tables on mobile go in `.jp-scroll` with a 「横にスクロールできます」 hint above them.
 
 ### Data table (weather style)
 
@@ -241,8 +255,8 @@ Ticket-shaped rows on #fcf0da with a notched or dashed edge, a short title in 14
 .data th,.data td{border:1px solid #ccc;padding:4px 2px}
 .data thead th{background:#f4f4ee}
 .data .past{color:#bbb}
-.max,.high{color:#ff0000}.min,.low{color:#0096ff}
-.sat{color:#0096ff}.sun,.holiday{color:#ff0000}
+.max,.high{color:#d7000f}.min,.low{color:#0062d6}   /* tenki.jp uses #ff0000 / #0096ff; darkened for 4.5:1 */
+.sat{color:#0062d6}.sun,.holiday{color:#d7000f}
 ```
 
 ### Breadcrumb
