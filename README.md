@@ -26,15 +26,22 @@ japanify は、これらの慣習を具体的な数値・ページ構成・コ�
 
 ## Examples / 作例
 
-Pages built by agents using only this skill. All companies, people and numbers are fictional.
+Pages built by agents using only this skill. All companies, people, addresses and numbers are fictional. The first three are in [`examples/`](examples/) as single HTML files you can open in a browser.
 
-このスキルだけを使ってエージェントが作ったページです。社名・人物・数値はすべて架空です。
+このスキルだけを使ってエージェントが作ったページです。社名・人物・住所・数値はすべて架空です。上の3つは [`examples/`](examples/) に単一のHTMLファイルとして収録しているので、ブラウザでそのまま開けます。
 
-| Regional portal / 地域ポータル | Dental clinic / 歯科クリニック |
+| B2B SaaS LP / BtoB SaaSのLP | Green tea shop / 日本茶の通販 |
 |---|---|
-| ![Regional portal top page](docs/images/qa-portal-desktop.jpg) | ![Dental clinic top page](docs/images/qa-clinic-desktop.jpg) |
-| **Tea shop / 日本茶の通販** | **Mobile / スマートフォン** |
-| ![Green tea online shop top page](docs/images/qa-tea-shop-desktop.jpg) | <img src="docs/images/qa-portal-mobile.jpg" alt="Regional portal on iPhone" width="49%"> <img src="docs/images/qa-clinic-mobile.jpg" alt="Dental clinic on iPhone" width="49%"> |
+| ![B2B SaaS landing page はたらくログ](docs/images/showcase-saas-lp-desktop.jpg) | ![Green tea online shop 茶葉の森](docs/images/showcase-tea-shop-desktop.jpg) |
+| **Pediatric dental clinic / こども歯科** | **Regional portal / 地域ポータル** |
+| ![Pediatric dental clinic みどり台こども歯科](docs/images/showcase-clinic-desktop.jpg) | ![Regional portal しずおかナビ](docs/images/qa-portal-desktop.jpg) |
+
+<p>
+<img src="docs/images/showcase-saas-lp-mobile.jpg" alt="B2B SaaS landing page はたらくログ (iPhone)" width="24%">
+<img src="docs/images/showcase-tea-shop-mobile.jpg" alt="Green tea online shop 茶葉の森 (iPhone)" width="24%">
+<img src="docs/images/showcase-clinic-mobile.jpg" alt="Pediatric dental clinic みどり台こども歯科 (iPhone)" width="24%">
+<img src="docs/images/qa-portal-mobile.jpg" alt="Regional portal しずおかナビ (iPhone)" width="24%">
+</p>
 
 ## What it covers / 対応範囲
 
@@ -157,6 +164,7 @@ skills/japanify/
   scripts/
     check.mjs                      Japan-readiness lint, no dependencies
     measure.mjs                    rendered measurement (Playwright)
+examples/                          showcase pages (single HTML files)
 docs/images/                       README screenshots
 .claude-plugin/                    Claude Code plugin manifest
 ```

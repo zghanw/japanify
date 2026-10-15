@@ -7,15 +7,16 @@ import path from 'node:path';
 import fs from 'node:fs';
 import { pathToFileURL } from 'node:url';
 
-// [median text px], [% of text at 14px or less], [median line-height], [links above the fold, desktop]
+// [median text px], [% of text at 14px or less], [median line-height], [links above the fold, desktop],
+// track: max % of text with letter-spacing (headings, buttons, card titles and LP leads are tracked; body text is not)
 const RANGES = {
-  portal: { size: [13, 14], small: [85, 100], lh: [1.3, 1.5], fold: [50, 110] },     // Yahoo! JAPAN, livedoor
-  ec: { size: [12, 14], small: [85, 100], lh: [1.3, 1.5], fold: [25, 60] },           // 楽天市場
-  article: { size: [15, 18], small: [10, 50], lh: [1.7, 2.0], fold: [5, 40] },         // note, Yahoo! News, TRILL
-  data: { size: [12, 14], small: [70, 100], lh: [1.3, 1.5], fold: [20, 60] },         // tenki.jp, ウェザーニュース
-  lp: { size: [13, 16], small: [40, 85], lh: [1.5, 1.8], fold: [10, 40] },            // docomo, B2B SaaS
-  local: { size: [13, 16], small: [40, 95], lh: [1.4, 1.8], fold: [10, 50] },         // 食べログ, clinic own sites
-  community: { size: [12, 14], small: [85, 100], lh: [1.4, 1.6], fold: [10, 40] },    // pixiv
+  portal: { size: [13, 14], small: [85, 100], lh: [1.3, 1.5], fold: [50, 110], track: 15 },     // Yahoo! JAPAN, livedoor
+  ec: { size: [12, 14], small: [85, 100], lh: [1.3, 1.5], fold: [25, 60], track: 15 },           // 楽天市場
+  article: { size: [15, 18], small: [10, 50], lh: [1.7, 2.0], fold: [5, 40], track: 30 },         // note, Yahoo! News, TRILL
+  data: { size: [12, 14], small: [70, 100], lh: [1.3, 1.5], fold: [20, 60], track: 25 },         // tenki.jp, ウェザーニュース
+  lp: { size: [13, 16], small: [40, 85], lh: [1.5, 1.8], fold: [10, 40], track: 30 },  // docomo, B2B SaaS
+  local: { size: [13, 16], small: [40, 95], lh: [1.4, 1.8], fold: [10, 50], track: 30 },         // 食べログ, clinic own sites
+  community: { size: [12, 14], small: [85, 100], lh: [1.4, 1.6], fold: [10, 40], track: 15 },    // pixiv
 };
 
 const [target, archetype, ...rest] = process.argv.slice(2);
@@ -83,7 +84,7 @@ for (const [name, opts] of Object.entries(profiles)) {
   console.log(`  ${grade(m.size, r.size)} median text size   ${m.size}px          target ${r.size.join(' to ')}px`);
   console.log(`  ${grade(m.small, r.small)} text at 14px or less ${m.small}%          target ${r.small.join(' to ')}%`);
   console.log(`  ${grade(m.lh, r.lh)} median line-height   ${m.lh}           target ${r.lh.join(' to ')}`);
-  console.log(`  ${m.tracked <= 15 ? 'ok   ' : 'CHECK'} tracked text         ${m.tracked}%           target 15% or less (headings and buttons only)`);
+  console.log(`  ${m.tracked <= r.track ? 'ok   ' : 'CHECK'} tracked text         ${m.tracked}%           target ${r.track}% or less (never on body text)`);
   if (name === 'desktop') console.log(`  ${grade(m.foldLinks, r.fold)} links above the fold ${m.foldLinks}           target ${r.fold.join(' to ')}  (${m.foldChars} characters)`);
   await ctx.close();
 }

@@ -20,13 +20,20 @@ japanify 把这些惯例以具体的数值、页面结构、组件 CSS、表单�
 
 ## 作品示例
 
-以下页面由代理仅使用本技能制作。公司、人物和数据均为虚构。
+以下页面由代理仅使用本技能制作。公司、人物、地址和数据均为虚构。前三个页面以单个 HTML 文件的形式收录在 [`examples/`](examples/) 中，可直接用浏览器打开。
 
-| 地区门户网站 | 牙科诊所 |
+| B2B SaaS 落地页 | 日本茶网店 |
 |---|---|
-| ![地区门户网站首页](docs/images/qa-portal-desktop.jpg) | ![牙科诊所首页](docs/images/qa-clinic-desktop.jpg) |
-| **日本茶网店** | **手机端** |
-| ![日本茶网店首页](docs/images/qa-tea-shop-desktop.jpg) | <img src="docs/images/qa-portal-mobile.jpg" alt="iPhone 上的地区门户网站" width="49%"> <img src="docs/images/qa-clinic-mobile.jpg" alt="iPhone 上的牙科诊所" width="49%"> |
+| ![B2B SaaS 落地页 はたらくログ](docs/images/showcase-saas-lp-desktop.jpg) | ![日本茶网店 茶葉の森](docs/images/showcase-tea-shop-desktop.jpg) |
+| **儿童牙科诊所** | **地区门户网站** |
+| ![儿童牙科诊所 みどり台こども歯科](docs/images/showcase-clinic-desktop.jpg) | ![地区门户网站 しずおかナビ](docs/images/qa-portal-desktop.jpg) |
+
+<p>
+<img src="docs/images/showcase-saas-lp-mobile.jpg" alt="B2B SaaS 落地页 はたらくログ (iPhone)" width="24%">
+<img src="docs/images/showcase-tea-shop-mobile.jpg" alt="日本茶网店 茶葉の森 (iPhone)" width="24%">
+<img src="docs/images/showcase-clinic-mobile.jpg" alt="儿童牙科诊所 みどり台こども歯科 (iPhone)" width="24%">
+<img src="docs/images/qa-portal-mobile.jpg" alt="地区门户网站 しずおかナビ (iPhone)" width="24%">
+</p>
 
 ## 涵盖内容
 
@@ -134,6 +141,7 @@ skills/japanify/
   scripts/
     check.mjs                      日本化静态检查，无依赖
     measure.mjs                    渲染后测量（Playwright）
+examples/                          示例页面（单个 HTML 文件）
 docs/images/                       README 截图
 .claude-plugin/                    Claude Code 插件清单
 ```

@@ -1,5 +1,5 @@
 // japanify.js: small helpers every Japanese frontend needs. No dependencies.
-// Classic script:  <script src="japanify.js"></script>  then  japanify.imeSafeEnter(input, send)
+// Classic script:  <script src="japanify.js"> (no inline content), then japanify.imeSafeEnter(input, send)
 // ES module:       import './japanify.js'; const { digits, longDate } = globalThis.japanify;
 // Single-file page: paste this file into a <script> tag as is.
 // Check:           node japanify.js --self-test

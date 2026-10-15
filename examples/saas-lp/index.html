@@ -1,0 +1,1754 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>勤怠管理クラウド「はたらくログ」｜打刻から給与連携まで【30日間無料】</title>
+<meta name="description" content="はたらくログは、中小企業のための勤怠管理クラウドです。スマホ・ICカードでの打刻から残業時間の上限チェック、給与計算ソフトへの連携まで、毎月の締め作業を自動化します。">
+<meta name="theme-color" content="#1560d4">
+<meta name="format-detection" content="telephone=no">
+<style>
+/* ==== japanify.css: begin ==== */
+/* japanify.css: Japanese web baseline measured from the top 10 Japanese websites (2026-10).
+   Drop in, then override the tokens. Three type modes:
+     default        dense UI (portal, EC, data, community): 14px / 1.5
+     .jp-lp         landing page and corporate copy: 16px / 1.75
+     .jp-read       articles and blog posts: 16px / 1.8 to 2.0
+   Values and sources: references/benchmarks.md, typography.md, layout-and-components.md */
+
+:root{
+  --jp-sans:"Helvetica Neue",Arial,"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",Meiryo,sans-serif;
+  --jp-ud:"Hiragino Kaku Gothic ProN","Hiragino Sans","BIZ UDPGothic","Noto Sans JP",Meiryo,sans-serif;
+  --jp-serif:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Noto Serif JP",serif;
+  --jp-mark-font:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",Meiryo,sans-serif; /* ○ △ × ◎ */
+  --jp-ink:#333;            /* body text: #333 / #444 / #272727 on the top sites, not #000 */
+  --jp-ink-sub:#666;        /* secondary text that still passes 4.5:1 */
+  --jp-ink-meta:#767676;    /* timestamps, ※ notes */
+  --jp-link:#1d3994;        /* Yahoo! JAPAN link blue; tenki #0b5daa, livedoor #2355a5 */
+  --jp-link-visited:#6f4fd2;/* Yahoo! JAPAN mobile; the desktop top keeps one color */
+  --jp-brand:#0061ca;       /* replace with the brand color (darken it if white text fails 4.5:1) */
+  --jp-accent:#d7000f;      /* NEW, 必須, sale */
+  --jp-price:#bf0000;       /* 楽天市場 price red */
+  --jp-cta:#c84b00;         /* orange CTA darkened to pass 4.5:1 with white text */
+  --jp-line:#ddd;
+  --jp-bg-sub:#f5f5f5;      /* table heads, info panels, footer */
+  --jp-sat:#0062d6;         /* 土: tenki.jp uses #0096ff, darkened here for 4.5:1 on small digits */
+  --jp-sun:#d7000f;         /* 日・祝: tenki.jp uses #ff0000, darkened for 4.5:1 */
+  --jp-temp-high:#d7000f;
+  --jp-temp-low:#0062d6;
+  --jp-radius:4px;
+  --jp-page:1080px;         /* fixed desktop page width, 950 to 1,140px on the top sites */
+  --jp-rail:300px;          /* side column, 288 to 336px */
+  --jp-sticky-offset:0px;   /* set to the sticky header height so #anchors are not hidden */
+}
+
+/* base (zero-specificity element rules so component classes always win) */
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:var(--jp-sticky-offset)}
+body{
+  margin:0;font-family:var(--jp-sans);font-size:14px;line-height:1.5;color:var(--jp-ink);background:#fff;
+  letter-spacing:0;line-break:strict;overflow-wrap:anywhere;
+  -webkit-font-smoothing:antialiased;
+}
+:where(a){color:var(--jp-link);text-decoration:none}
+:where(a:visited){color:var(--jp-link-visited)}
+:where(a:hover){text-decoration:underline}
+:where(img){max-width:100%;height:auto;vertical-align:middle}
+:where(em,i,cite){font-style:normal;font-weight:700}
+:where(small),.jp-note{font-size:12px;color:var(--jp-ink-meta)}
+.jp-mark{font-family:var(--jp-mark-font)}
+:focus-visible{outline:2px solid #1a1a1a;outline-offset:2px;box-shadow:0 0 0 4px #ffd43d}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* headings: bold, palt only here, marked with bars or rules */
+:where(h1,h2,h3,h4){margin:0 0 10px;font-weight:700;line-height:1.4;font-feature-settings:"palt";letter-spacing:.04em;word-break:auto-phrase;text-wrap:balance}
+:where(h1){font-size:24px}:where(h2){font-size:20px}:where(h3){font-size:16px}:where(h4){font-size:14px}
+.jp-h-bar{border-left:6px solid var(--jp-brand);padding:2px 0 2px 10px}
+.jp-h-rule{border-bottom:3px solid var(--jp-brand);padding-bottom:6px}
+.jp-h-strip{padding:6px 10px;background:var(--jp-bg-sub);font-size:14px}
+.jp-eyebrow{display:block;margin-bottom:4px;color:var(--jp-brand);font:700 12px/1.2 "Helvetica Neue",Arial,sans-serif;letter-spacing:.15em}
+
+/* landing page and corporate mode */
+.jp-lp{font-size:16px;line-height:1.75}
+.jp-lp :where(h1){font-size:clamp(24px,4vw,36px);line-height:1.4}
+.jp-lp :where(h2){font-size:clamp(22px,3vw,28px)}
+.jp-lp :where(h3){font-size:18px}
+
+/* reading mode (articles, blogs): Yahoo! News, livedoor News, TRILL 16px / 1.8; note 18px / 2.0 */
+.jp-read{font-size:16px;line-height:1.85}
+.jp-read p{margin:0 0 1.75em;max-inline-size:40ic}
+.jp-read a{text-decoration:underline}
+.jp-read :where(h2){font-size:22px;margin:2.5em 0 .75em}
+.jp-read :where(h3){font-size:18px;margin:2em 0 .5em}
+.jp-read blockquote{margin:0 0 1.75em;padding:20px 28px;background:#f5f8fa;font-size:15px}
+.jp-read--large{font-size:18px;line-height:2}
+@media (min-width:768px){.jp-read :where(h2){font-size:24px}.jp-read :where(h3){font-size:20px}}
+
+/* layout */
+.jp-page{width:min(100% - 32px,var(--jp-page));margin-inline:auto}
+.jp-cols{display:grid;grid-template-columns:minmax(0,1fr) var(--jp-rail);gap:20px}
+@media (max-width:767px){.jp-cols{grid-template-columns:1fr}}
+.jp-section{margin-block:0 40px}
+.jp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.jp-scroll-hint{display:none;font-size:12px;color:var(--jp-ink-meta)}
+@media (max-width:767px){.jp-scroll-hint{display:block}}   /* 横にスクロールできます */
+
+/* numbers, units, prices */
+.jp-num{font-family:"Helvetica Neue",Arial,sans-serif;font-feature-settings:"tnum"}
+.jp-unit{font-size:.75em;margin-inline-start:.1em}
+.jp-price{color:var(--jp-price);font:700 24px/1 "Helvetica Neue",Arial,sans-serif} /* 楽天 uses Roboto 500 as a web font; system fallbacks need 700 */
+.jp-price .jp-yen{font:700 .58em/1 var(--jp-sans);margin-inline-start:.05em}
+.jp-price .jp-tax{font:400 11px/1 var(--jp-sans);color:var(--jp-ink);margin-inline-start:4px}
+.jp-high{color:var(--jp-temp-high)}.jp-low{color:var(--jp-temp-low)}
+.jp-sat{color:var(--jp-sat)}.jp-sun,.jp-holiday{color:var(--jp-sun)}
+
+/* badges */
+.jp-chip{display:inline-block;padding:1px 6px;font-size:11px;font-weight:700;line-height:1.5;border-radius:2px;vertical-align:middle;white-space:nowrap}
+.jp-chip--red{background:var(--jp-accent);color:#fff}
+.jp-chip--outline{border:1px solid var(--jp-accent);color:var(--jp-accent);background:#fff}
+.jp-chip--grey{background:#eee;color:#555;font-weight:400}
+.jp-new{color:var(--jp-accent);font-size:11px;font-weight:700;margin-inline-start:6px;white-space:nowrap}
+
+/* お知らせ list: <li><time/><span class="jp-chip"/><a>title<span class="jp-new">NEW</span></a></li> */
+.jp-news{list-style:none;margin:0;padding:0}
+.jp-news li{display:flex;gap:12px;align-items:baseline;padding:10px 0;border-bottom:1px dotted #ccc}
+.jp-news time{flex-shrink:0;color:var(--jp-ink-sub);font-size:13px;font-feature-settings:"tnum"}
+.jp-news .jp-chip{flex-shrink:0;min-width:5.5em;text-align:center}
+@media (max-width:599px){.jp-news li{flex-wrap:wrap;gap:4px 8px}.jp-news li>a{flex-basis:100%}}
+
+/* ranking */
+.jp-rank{list-style:none;margin:0;padding:0;counter-reset:r}
+.jp-rank li{counter-increment:r;display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid #eee}
+.jp-rank li::before{content:counter(r);flex-shrink:0;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#8c8c8c;color:#fff;font-size:13px;font-weight:700}
+.jp-rank li:nth-child(1)::before{background:#b8860b}
+.jp-rank li:nth-child(2)::before{background:#8a9097}
+.jp-rank li:nth-child(3)::before{background:#a0522d}
+
+/* tabs */
+.jp-tabs{display:flex;border-bottom:2px solid var(--jp-brand)}
+.jp-tabs a,.jp-tabs button{flex:1;padding:10px 4px;border:0;background:#eef1f5;color:var(--jp-brand);font:700 14px/1.3 var(--jp-sans);text-align:center;text-decoration:none;cursor:pointer}
+.jp-tabs [aria-selected=true]{background:var(--jp-brand);color:#fff}
+
+/* buttons */
+.jp-btn{display:inline-flex;align-items:center;justify-content:center;gap:.4em;min-height:44px;padding:8px 24px;border:1px solid transparent;border-radius:var(--jp-radius);font:700 15px/1.3 var(--jp-sans);font-feature-settings:"palt";text-decoration:none;cursor:pointer;color:var(--jp-ink);background:#fff}
+.jp-btn:hover{text-decoration:none;filter:brightness(.95)}
+.jp-btn:has(small){flex-direction:column;gap:0}
+.jp-btn small{display:block;font-size:11px;font-weight:400;color:inherit}
+.jp-btn--primary,.jp-btn--primary:visited{background:var(--jp-brand);color:#fff}
+.jp-btn--cta,.jp-btn--cta:visited{background:var(--jp-cta);color:#fff}           /* 資料請求, 無料で試す */
+.jp-btn--cart,.jp-btn--cart:visited{background:var(--jp-price);color:#fff;min-height:48px;min-width:192px} /* 楽天市場 かごに追加 */
+.jp-btn--booking,.jp-btn--booking:visited{background:#c04f00;color:#fff}         /* 予約する; 食べログ's #ffaa00 gradient fails 4.5:1 */
+.jp-btn--line,.jp-btn--line:visited{background:#06c755;color:#fff}               /* LINE brand color is mandated; keep the label 14px+ bold */
+.jp-btn--ghost,.jp-btn--ghost:visited{background:#fff;color:var(--jp-ink);border-color:#bbb}
+.jp-more{font-size:13px}
+.jp-more::after{content:" ›"}
+
+/* tables */
+.jp-info{width:100%;border-collapse:collapse}
+.jp-info th{width:28%;padding:12px;background:var(--jp-bg-sub);border:1px solid var(--jp-line);text-align:left;vertical-align:top}
+.jp-info td{padding:12px;border:1px solid var(--jp-line)}
+@media (max-width:599px){.jp-info th,.jp-info td{display:block;width:auto}.jp-info th{border-bottom:0}}
+.jp-data{width:100%;table-layout:fixed;border-collapse:collapse;font-size:12px;text-align:center}
+.jp-data th,.jp-data td{border:1px solid #ccc;padding:4px 2px}
+.jp-data thead th{background:#f4f4ee}
+.jp-data .is-past{color:#999}
+.jp-data td,.jp-hours td{font-family:var(--jp-mark-font)}
+
+/* breadcrumb */
+.jp-breadcrumb{display:flex;flex-wrap:wrap;gap:4px;margin:0;padding:8px 0;list-style:none;font-size:12px;color:var(--jp-ink-sub)}
+.jp-breadcrumb li+li::before{content:"＞";margin-inline-end:4px;color:#999}
+
+/* forms: <form class="jp-form h-adr"> with .jp-req / .jp-opt badges */
+.jp-form input:not([type=checkbox]):not([type=radio]),.jp-form select,.jp-form textarea{font:16px/1.4 var(--jp-sans);padding:10px;border:1px solid #bbb;border-radius:var(--jp-radius);max-width:100%;color:var(--jp-ink);background:#fff}
+.jp-req,.jp-opt{display:inline-block;margin-inline-start:.5em;padding:.1em .5em;font-size:11px;font-weight:700;line-height:1.4;border-radius:2px;vertical-align:.1em}
+.jp-req{color:#fff;background:var(--jp-accent)}
+.jp-opt{color:#555;background:#f2f2f2;border:1px solid #bbb}
+.jp-error{color:var(--jp-accent);font-size:13px}
+.jp-form [aria-invalid=true]{border-color:var(--jp-accent);background:#fff0f0}
+.jp-error-summary{padding:12px 16px;border:2px solid var(--jp-accent);background:#fff0f0;color:var(--jp-accent);font-weight:700}
+.jp-form-table{width:100%;border-collapse:collapse}
+.jp-form-table th{width:30%;padding:16px;background:var(--jp-bg-sub);border:1px solid var(--jp-line);text-align:left;vertical-align:top;font-weight:700}
+.jp-form-table td{padding:16px;border:1px solid var(--jp-line)}
+@media (max-width:599px){.jp-form-table th,.jp-form-table td{display:block;width:auto}.jp-form-table th{border-bottom:0;padding-bottom:8px}}
+.jp-steps{display:flex;justify-content:center;gap:4px;margin:0 0 24px;padding:0;list-style:none;font-size:13px}
+.jp-steps li{padding:6px 16px;background:#eee;color:#555}
+.jp-steps [aria-current=step]{background:var(--jp-brand);color:#fff;font-weight:700}  /* 入力 → 確認 → 完了 */
+
+/* footer */
+.jp-footer{background:var(--jp-bg-sub);font-size:12px;color:#555;padding:24px 16px;text-align:center}
+.jp-footer nav{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 16px;margin-bottom:12px}
+.jp-footer a,.jp-footer a:visited{color:#555}
+.jp-footer address{font-style:normal;margin-bottom:8px}
+.jp-pagetop,.jp-pagetop:visited{position:fixed;right:16px;bottom:16px;width:48px;height:48px;display:grid;place-items:center;background:#333;color:#fff;font-size:10px;line-height:1.1;text-align:center;text-decoration:none;border-radius:4px}
+/* ==== japanify.css: end ==== */
+
+/* ===== はたらくログ: page tokens ===== */
+:root{
+  --jp-brand:#1560d4;
+  --jp-link:#1560d4;
+  --jp-link-visited:#1560d4;
+  --jp-ink:#333;
+  --jp-ink-meta:#6b6b6b;   /* #767676 drops below 4.5:1 on the tinted sections */
+  --jp-sticky-offset:84px; /* sticky header 72px + air */
+  --ink-strong:#1f2633;
+  --brand-deep:#0d47a8;
+  --brand-tint:#edf3fe;
+  --brand-tint2:#f6f9ff;
+  --cta:var(--jp-cta);
+  --cta-deep:#a33a07;
+  --navy:#17233b;
+  --yellow:#ffc94a;
+  --mint:#28a98c;
+  --coral:#ff8a6b;
+  --skin:#f3c9a8;
+  --skin2:#dca27c;
+  --hair:#2e2a36;
+  --line:#e2e8f1;
+  --wrap:1120px;
+}
+html{scroll-behavior:smooth}
+a:hover{text-decoration:underline}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:8px;top:-60px;z-index:100;padding:8px 16px;background:#fff;color:var(--ink-strong);border-radius:4px}
+.skip:focus{top:8px}
+.wrap{width:min(100% - 48px,var(--wrap));margin-inline:auto}
+.ic{width:24px;height:24px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle}
+.num{font-family:"Helvetica Neue",Arial,sans-serif;font-feature-settings:"tnum"}
+
+/* buttons */
+.btn{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:48px;padding:8px 24px;border:2px solid transparent;border-radius:999px;font:700 15px/1.3 var(--jp-sans);font-feature-settings:"palt";letter-spacing:.04em;text-align:center;text-decoration:none;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,background-color .2s ease}
+.btn:hover{text-decoration:none;transform:translateY(-1px)}
+.btn:active{transform:translateY(1px)}
+.btn small{font-size:11px;font-weight:400;letter-spacing:.02em;color:inherit;opacity:.92}
+.btn--cta{background:var(--cta);color:#fff;box-shadow:0 3px 0 var(--cta-deep)}
+.btn--cta:hover{background:#b8430a}
+.btn--cta:visited,.btn--outline:visited,.btn--white:visited{color:inherit}
+.btn--cta:visited{color:#fff}
+.btn--outline{background:#fff;color:var(--jp-brand);border-color:var(--jp-brand)}
+.btn--outline:visited{color:var(--jp-brand)}
+.btn--outline:hover{background:var(--brand-tint)}
+.btn--ghost{background:#fff;color:#444;border-color:#c8cfda}
+.btn--lg{min-height:64px;min-width:250px;font-size:17px}
+.btn .row{display:inline-flex;align-items:center;gap:6px}
+.btn .ic{width:20px;height:20px}
+
+/* header */
+.hd{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line)}
+.hd-in{display:flex;align-items:center;gap:28px;height:72px}
+.logo{display:flex;align-items:center;gap:10px;color:var(--ink-strong);text-decoration:none;flex-shrink:0}
+.logo:visited{color:var(--ink-strong)}
+.logo:hover{text-decoration:none}
+.logo-txt{display:flex;flex-direction:column;line-height:1.15}
+.logo-txt b{font-size:21px;letter-spacing:.06em;font-feature-settings:"palt"}
+.logo-txt span{font-size:10px;color:#666;letter-spacing:.04em}
+.gnav{display:flex;gap:24px}
+.gnav a{color:#333;font-size:14px;font-weight:700;font-feature-settings:"palt";letter-spacing:.04em;white-space:nowrap}
+.gnav a:visited{color:#333}
+.gnav a:hover{color:var(--jp-brand);text-decoration:none}
+.hd-right{display:flex;align-items:center;gap:16px;margin-left:auto}
+.hd-tel{display:flex;flex-direction:column;align-items:flex-end;line-height:1.2;color:#333}
+.hd-tel a{display:flex;align-items:center;gap:4px;color:#333;font:700 18px/1.1 "Helvetica Neue",Arial,sans-serif;letter-spacing:.02em}
+.hd-tel a:visited{color:#333}
+.hd-tel .ic{width:16px;height:16px;color:var(--jp-brand)}
+.hd-tel small{font-size:11px;color:#666}
+.hd-cta{display:flex;gap:8px}
+.hd-cta .btn{min-height:44px;padding:6px 18px;font-size:14px}
+.menu-btn{display:none}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding:48px 0 52px;background:linear-gradient(180deg,#eef4ff 0%,#f7faff 62%,#fff 100%)}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;pointer-events:none}
+.hero::before{width:620px;height:620px;right:-120px;top:-180px;background:radial-gradient(circle,rgba(21,96,212,.10),rgba(21,96,212,0) 68%)}
+.hero::after{width:300px;height:300px;left:-120px;bottom:-140px;background:radial-gradient(circle,rgba(255,201,74,.22),rgba(255,201,74,0) 70%)}
+.hero-in{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) 560px;gap:32px;align-items:center}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;padding:0;list-style:none}
+.hero-tags li{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;background:#fff;border:1px solid #cfdcf3;color:var(--brand-deep);font-size:13px;font-weight:700;font-feature-settings:"palt";letter-spacing:.04em}
+.hero-tags .ic{width:16px;height:16px;color:var(--jp-brand)}
+.hero h1{margin:0 0 18px;font-size:36px;line-height:1.42;color:var(--ink-strong)}
+.hero h1 .hl{color:var(--jp-brand);background:linear-gradient(transparent 70%,rgba(255,201,74,.55) 70%)}
+.hero h1 sup{font-size:13px;color:#555;vertical-align:top;margin-left:2px;letter-spacing:0}
+.hero-lead{margin:0;font-size:16px;line-height:1.9;color:#444;max-width:32em}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.trust{display:flex;margin:32px 0 0;padding:0;list-style:none}
+.trust li{display:flex;align-items:center;gap:2px;padding:0 14px 0 0}
+.trust li+li{padding-left:14px;border-left:1px solid #d4def0}
+.laurel{width:16px;height:46px;color:#c9a227;flex-shrink:0}
+.laurel--r{transform:scaleX(-1)}
+.trust-body{text-align:center;line-height:1.25;padding:0 4px}
+.trust-body span{display:block;font-size:12px;font-weight:700;color:#555;font-feature-settings:"palt";letter-spacing:.04em;white-space:nowrap}
+.trust-body b{display:block;font:700 30px/1.1 "Helvetica Neue",Arial,sans-serif;color:var(--brand-deep);white-space:nowrap}
+.trust-body b small{font:700 14px/1 var(--jp-sans);color:var(--brand-deep);margin-left:1px}
+.trust-body b sup{font:400 10px/1 var(--jp-sans);color:#666;vertical-align:top}
+.notes{margin:14px 0 0;padding:0;list-style:none;font-size:11px;line-height:1.6;color:#5f6368}
+.notes .fict{margin-top:4px;font-weight:700;color:#4a5160}
+.cert-note{margin:0;font-size:11px;color:#5f6368}
+
+/* hero visual */
+.hero-visual{position:relative;width:560px;height:460px}
+.mock{position:absolute;left:44px;top:14px;width:440px;border-radius:12px;background:#fff;box-shadow:0 18px 40px rgba(23,35,59,.14),0 2px 6px rgba(23,35,59,.08);overflow:hidden;font-size:11px;line-height:1.4;color:#333}
+.mk-top{display:flex;align-items:center;gap:5px;height:26px;padding:0 10px;background:#f1f4f9;border-bottom:1px solid #e3e8f0}
+.mk-top i{width:8px;height:8px;border-radius:50%;background:#d6dce6}
+.mk-top span{margin-left:10px;padding:1px 10px;border-radius:999px;background:#fff;color:#888;font-size:9px}
+.mk-body{display:grid;grid-template-columns:100px 1fr;min-height:322px}
+.mk-side{padding:12px 6px;background:#f7f9fd;border-right:1px solid #e8edf4}
+.mk-brand{display:flex;align-items:center;gap:4px;margin-bottom:12px;font-size:10.5px;font-weight:700;white-space:nowrap}
+.mk-side ul{margin:0;padding:0;list-style:none}
+.mk-side li{white-space:nowrap;display:flex;justify-content:space-between;align-items:center;padding:5px 8px;border-radius:6px;color:#555;font-size:10px}
+.mk-side li.on{background:var(--brand-tint);color:var(--brand-deep);font-weight:700}
+.mk-side li em{padding:0 5px;border-radius:999px;background:var(--cta);color:#fff;font-size:9px;line-height:1.5}
+.mk-main{padding:12px 14px}
+.mk-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.mk-h b{font-size:12px}
+.mk-h span{font-size:9px;color:#888}
+.mk-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.mk-stats div{padding:7px 9px;border:1px solid #e6ebf3;border-radius:8px}
+.mk-stats span{display:block;font-size:9px;color:#777}
+.mk-stats b{font:700 17px/1.2 "Helvetica Neue",Arial,sans-serif;color:var(--ink-strong)}
+.mk-stats b small{font-size:10px;color:#666;margin-left:1px}
+.mk-stats .warn b{color:#c2410c}
+.mk-chart{position:relative;padding:8px 10px 6px;border:1px solid #e6ebf3;border-radius:8px;margin-bottom:10px}
+.mk-chart-h{display:flex;justify-content:space-between;font-size:9px;color:#666;margin-bottom:4px}
+.mk-chart-h em{color:#c2410c;font-weight:700}
+.bars{position:relative;display:flex;align-items:flex-end;gap:12px;height:78px;padding:0 6px;border-bottom:1px solid #d9e0ea}
+.bars::before{content:"";position:absolute;left:0;right:0;top:8px;border-top:1.5px dashed #e0703a}
+.bars span{flex:1;border-radius:4px 4px 0 0;background:#9dbdf0;transform-origin:bottom;animation:grow .9s cubic-bezier(.2,.8,.2,1) both}
+.bars span.hi{background:var(--jp-brand)}
+.bars span.near{background:#f08a4b}
+.bars span:nth-child(2){animation-delay:.08s}.bars span:nth-child(3){animation-delay:.16s}.bars span:nth-child(4){animation-delay:.24s}.bars span:nth-child(5){animation-delay:.32s}.bars span:nth-child(6){animation-delay:.4s}
+@keyframes grow{from{transform:scaleY(.1)}to{transform:scaleY(1)}}
+.bar-lbl{display:flex;gap:12px;padding:3px 6px 0;font-size:8.5px;color:#888}
+.bar-lbl span{flex:1;text-align:center}
+.mk-table{width:100%;border-collapse:collapse;font-size:10px}
+.mk-table th{padding:3px 6px;text-align:left;color:#888;font-weight:400;border-bottom:1px solid #e6ebf3}
+.mk-table td{padding:4px 6px;border-bottom:1px solid #f0f3f7}
+.st{display:inline-block;padding:0 6px;border-radius:999px;font-size:9px;font-weight:700;line-height:1.6}
+.st--on{background:#e3f6ef;color:#17795f}
+.st--off{background:#eef1f5;color:#5b6474}
+.st--leave{background:#f1ecfd;color:#6545b8}
+.st--miss{background:#fde9e1;color:#b13a0a}
+.phone{position:absolute;left:0;top:150px;width:150px;height:272px;padding:22px 12px 12px;border-radius:24px;background:#fff;border:5px solid #1f2633;box-shadow:0 16px 30px rgba(23,35,59,.2);text-align:center;color:#333}
+.phone::before{content:"";position:absolute;left:50%;top:7px;width:40px;height:6px;margin-left:-20px;border-radius:6px;background:#1f2633}
+.ph-date{margin:0;font-size:10px;color:#666}
+.ph-time{margin:0;font:700 34px/1.1 "Helvetica Neue",Arial,sans-serif;color:var(--ink-strong);letter-spacing:.02em}
+.ph-place{display:flex;align-items:center;justify-content:center;gap:2px;margin:2px 0 12px;font-size:9px;color:#666}
+.ph-place .ic{width:11px;height:11px;color:var(--mint)}
+.ph-in{display:grid;place-items:center;width:84px;height:84px;margin:0 auto 10px;border-radius:50%;background:var(--jp-brand);color:#fff;font-size:15px;font-weight:700;box-shadow:0 0 0 8px rgba(21,96,212,.14);animation:pulse 2.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 6px rgba(21,96,212,.14)}50%{box-shadow:0 0 0 12px rgba(21,96,212,.06)}}
+.ph-sub{display:flex;gap:6px;justify-content:center}
+.ph-sub span{padding:3px 8px;border-radius:999px;border:1px solid #d5dce8;font-size:9px;color:#555}
+.toast{position:absolute;display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:10px;background:#fff;box-shadow:0 10px 24px rgba(23,35,59,.14);font-size:11px;line-height:1.4;color:#333;white-space:nowrap;animation:floaty 6s ease-in-out infinite}
+.toast b{display:block;font-size:12px}
+.toast .dot{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;flex-shrink:0}
+.toast .ic{width:16px;height:16px}
+.toast--a{right:0;top:0}
+.toast--a .dot{background:#fff1e8;color:#c2410c}
+.toast--b{left:112px;bottom:0;animation-delay:-3s}
+.toast--b .dot{background:#e3f6ef;color:#17795f}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.hero-person{position:absolute;right:-8px;bottom:4px;width:116px;height:214px}
+
+/* logos */
+.logos{padding:36px 0 44px;border-bottom:1px solid var(--line)}
+.logos-h{margin:0 0 20px;text-align:center;font-size:15px;font-weight:700;color:#444;font-feature-settings:"palt";letter-spacing:.04em}
+.logos-h b{color:var(--jp-brand);font-size:18px}
+.logos-h .sup{font-size:11px;vertical-align:top;color:#5f6368}
+.logo-wall{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:0;padding:0;list-style:none}
+.logo-wall li{display:flex;align-items:center;justify-content:center;gap:7px;height:60px;padding:0 8px;border-radius:8px;background:#fff;border:1px solid var(--line);color:#5d6676;font-weight:700;font-size:14px;font-feature-settings:"palt";white-space:nowrap}
+.logo-wall svg{width:22px;height:22px;flex-shrink:0}
+.lw-wide{letter-spacing:.14em}
+.lw-latin{font:700 13px/1 "Helvetica Neue",Arial,sans-serif;letter-spacing:.16em}
+.lw-small{font-size:12.5px;letter-spacing:.02em}
+.logos .notes{text-align:center;margin-top:12px}
+
+/* sections */
+.sec{padding:88px 0}
+.sec--tint{background:var(--brand-tint2)}
+.sec-head{text-align:center;margin-bottom:44px}
+.sec-en{margin:0 0 6px;font:700 12px/1 "Helvetica Neue",Arial,sans-serif;letter-spacing:.2em;color:var(--jp-brand)}
+.sec-head h2{position:relative;margin:0;padding-bottom:18px;font-size:28px;color:var(--ink-strong)}
+.sec-head h2::after{content:"";position:absolute;left:50%;bottom:0;width:44px;height:4px;margin-left:-22px;border-radius:2px;background:var(--jp-brand)}
+.sec-lead{margin:18px auto 0;max-width:40em;color:#555;font-size:15px}
+
+/* pains */
+.pains{display:grid;grid-template-columns:340px 1fr;gap:40px;align-items:center}
+.pain-illust{width:100%;height:auto}
+.pain-list{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0;padding:0;list-style:none}
+.pain-list li{position:relative;display:flex;gap:10px;align-items:flex-start;padding:16px 18px;border-radius:12px;background:#fff;border:1px solid var(--line);font-size:15px;line-height:1.6;font-weight:700;color:#333;font-feature-settings:"palt"}
+.pain-list li::after{content:"";position:absolute;left:30px;bottom:-8px;width:14px;height:14px;background:#fff;border-right:1px solid var(--line);border-bottom:1px solid var(--line);transform:rotate(45deg)}
+.pain-list .ic{color:#e0703a;width:22px;height:22px;margin-top:1px}
+.solve{position:relative;margin:56px auto 0;max-width:720px;padding:22px 24px;border-radius:12px;background:var(--jp-brand);color:#fff;text-align:center}
+.solve::before{content:"";position:absolute;left:50%;top:-34px;margin-left:-26px;border:26px solid transparent;border-top:18px solid #c5d6f2;border-bottom:0}
+.solve p{margin:0;font-size:22px;font-weight:700;line-height:1.5;font-feature-settings:"palt";letter-spacing:.04em}
+.solve p span{display:block;font-size:14px;font-weight:400;letter-spacing:.04em;opacity:.92}
+
+/* reasons */
+.reason{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.reason+.reason{margin-top:72px}
+.reason:nth-child(even) .reason-art{order:2}
+.reason-art{border-radius:20px;background:var(--brand-tint);padding:20px}
+.reason-art svg{display:block;width:100%;height:auto}
+.point{display:flex;align-items:baseline;gap:10px;margin:0 0 10px;color:var(--jp-brand);font:700 13px/1 "Helvetica Neue",Arial,sans-serif;letter-spacing:.18em}
+.point b{font-size:36px;letter-spacing:.02em;line-height:1}
+.reason h3{margin:0 0 14px;font-size:26px;line-height:1.5;color:var(--ink-strong)}
+.reason p{margin:0 0 16px;color:#444}
+.checks{margin:0;padding:0;list-style:none}
+.checks li{display:flex;gap:8px;align-items:flex-start;padding:5px 0;font-size:14px;font-weight:700;color:#333}
+.checks .ic{width:20px;height:20px;padding:3px;border-radius:50%;background:var(--mint);color:#fff;stroke-width:3;margin-top:2px}
+
+/* features */
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:0;padding:0;list-style:none}
+.features li{padding:22px 20px 20px;border-radius:12px;background:#fff;border:1px solid var(--line);transition:border-color .2s,box-shadow .2s,transform .2s}
+.features li:hover{border-color:#b7cbef;box-shadow:0 8px 18px rgba(21,96,212,.08);transform:translateY(-2px)}
+.f-ic{display:grid;place-items:center;width:46px;height:46px;margin-bottom:12px;border-radius:12px;background:var(--brand-tint);color:var(--jp-brand)}
+.features h3{margin:0 0 6px;font-size:16px;color:var(--ink-strong)}
+.features p{margin:0;font-size:13px;line-height:1.7;color:#555}
+.more-c{text-align:center;margin-top:28px}
+
+/* cases */
+.cases{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:0;padding:0;list-style:none}
+.case{display:flex;flex-direction:column;border-radius:14px;background:#fff;border:1px solid var(--line);overflow:hidden}
+.case-top{display:flex;align-items:center;gap:14px;padding:20px 22px 16px;background:var(--brand-tint2);border-bottom:1px solid var(--line)}
+.case-top svg{width:64px;height:64px;flex-shrink:0;border-radius:50%}
+.case-co{margin:0;font-size:15px;font-weight:700;color:var(--ink-strong);line-height:1.4}
+.case-tag{margin:2px 0 0;font-size:12px;color:#666;line-height:1.5}
+.case-body{display:flex;flex-direction:column;flex:1;padding:18px 22px 22px}
+.case h3{margin:0 0 14px;font-size:17px;line-height:1.6;color:var(--ink-strong)}
+.result{display:flex;align-items:center;justify-content:center;gap:10px;margin:0 0 14px;padding:12px;border-radius:10px;background:#fff7ec;color:#7a3f0a}
+.result-l{font-size:12px;font-weight:700}
+.result-v{font:700 15px/1.2 var(--jp-sans);color:#7a3f0a}
+.result-v b{font:700 26px/1 "Helvetica Neue",Arial,sans-serif;color:var(--cta)}
+.result .arrow{color:var(--cta);width:18px;height:18px}
+.case-person{margin:auto 0 0;padding-top:12px;border-top:1px dashed #d9e0ea;font-size:12px;color:#555;line-height:1.6}
+.case-person b{color:#333;font-size:13px}
+.case .jp-more{display:inline-block;margin-top:10px;font-weight:700}
+
+/* pricing */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+.plan{position:relative;display:flex;flex-direction:column;padding:30px 26px 26px;border-radius:14px;background:#fff;border:1px solid var(--line)}
+.plan--rec{border:2px solid var(--jp-brand);box-shadow:0 12px 28px rgba(21,96,212,.12)}
+.plan-badge{position:absolute;left:50%;top:-14px;transform:translateX(-50%);padding:3px 16px;border-radius:999px;background:var(--jp-brand);color:#fff;font-size:12px;font-weight:700;letter-spacing:.08em;white-space:nowrap}
+.plan h3{margin:0;font-size:20px;color:var(--ink-strong)}
+.plan-for{margin:2px 0 16px;font-size:13px;color:#666}
+.plan-price{margin:0;color:var(--ink-strong);line-height:1.2}
+.plan-price b{font:700 36px/1 "Helvetica Neue",Arial,sans-serif;letter-spacing:.01em}
+.plan-price .yen{font-size:20px;font-weight:700;margin:0 4px 0 2px}
+.plan-price .per{font-size:12px;color:#555}
+.plan-tax{margin:6px 0 18px;font-size:13px;color:#555}
+.plan-tax .tag{display:inline-block;margin-right:6px;padding:0 6px;border-radius:3px;background:#eef1f5;color:#444;font-size:11px;font-weight:700}
+.plan .checks{margin-bottom:22px}
+.plan .checks li{font-weight:400;font-size:14px}
+.plan .checks li.lead{font-weight:700;color:var(--brand-deep)}
+.plan .btn{margin-top:auto;width:100%}
+.price-notes{margin:20px 0 0;padding:0;list-style:none;font-size:12px;line-height:1.7;color:#666}
+.cmp-wrap{position:relative;margin-top:40px;overflow-x:auto;border-radius:12px;border:1px solid var(--line)}
+.cmp{width:100%;min-width:640px;border-collapse:collapse;font-size:14px;background:#fff}
+.cmp caption{padding:14px 18px;text-align:left;font-weight:700;font-size:16px;color:var(--ink-strong);caption-side:top;background:#fff;border-bottom:1px solid var(--line)}
+.cmp caption small{margin-left:10px;font-weight:400;font-size:12px;color:#666}
+.cmp th,.cmp td{padding:11px 14px;border-bottom:1px solid var(--line)}
+.cmp thead th{background:#f3f6fb;font-size:14px;text-align:center}
+.cmp tbody th{text-align:left;font-weight:400;color:#333}
+.cmp td{text-align:center;width:20%}
+.cmp .rec{background:#f4f8ff}
+.cmp thead .rec{background:var(--jp-brand);color:#fff}
+.mk{font-family:var(--jp-mark-font);font-size:18px;line-height:1;font-weight:700}
+.mk--o{color:var(--jp-brand)}
+.mk--t{color:#a86400}
+.mk--n{color:#767676;font-weight:400}
+.cmp td small{display:block;font-size:11px;color:#666;line-height:1.4;margin-top:2px}
+.cmp tbody tr:last-child th,.cmp tbody tr:last-child td{border-bottom:0}
+
+/* flow */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin:0;padding:0;list-style:none;counter-reset:s}
+.flow li{position:relative;padding:26px 20px 22px;border-radius:14px;background:#fff;border:1px solid var(--line);text-align:center}
+.flow li:not(:last-child)::after{content:"";position:absolute;right:-22px;top:50%;width:14px;height:14px;margin-top:-7px;border-top:3px solid #9dbdf0;border-right:3px solid #9dbdf0;transform:rotate(45deg)}
+.step{display:inline-block;padding:3px 14px;border-radius:999px;background:var(--jp-brand);color:#fff;font:700 12px/1.5 "Helvetica Neue",Arial,sans-serif;letter-spacing:.12em}
+.flow-ic{display:grid;place-items:center;width:64px;height:64px;margin:14px auto 12px;border-radius:50%;background:var(--brand-tint);color:var(--jp-brand)}
+.flow-ic .ic{width:30px;height:30px;stroke-width:1.6}
+.flow h3{margin:0 0 6px;font-size:16px;color:var(--ink-strong)}
+.flow p{margin:0;font-size:13px;line-height:1.7;color:#555;text-align:left}
+.flow-note{margin:22px 0 0;text-align:center;font-size:15px;font-weight:700;color:#333}
+.flow-note b{color:var(--jp-brand);font-size:20px}
+
+/* security */
+.sec-grid{display:grid;grid-template-columns:300px 1fr;gap:48px;align-items:center}
+.sec-badges{display:flex;flex-direction:column;align-items:center;gap:18px}
+.sec-badges svg.shield{width:180px;height:auto}
+.cert{display:flex;gap:10px}
+.cert span{display:flex;flex-direction:column;align-items:center;justify-content:center;width:120px;height:62px;border-radius:10px;border:1px solid #cfdcf3;background:#fff;font-size:11px;line-height:1.35;color:#555;text-align:center}
+.cert b{font-size:13px;color:var(--ink-strong)}
+.sec-list{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0;padding:0;list-style:none}
+.sec-list li{display:flex;gap:14px;padding:16px 18px;border-radius:12px;background:#fff;border:1px solid var(--line)}
+.sec-list .ic{width:28px;height:28px;color:var(--jp-brand);stroke-width:1.6}
+.sec-list b{display:block;font-size:15px;color:var(--ink-strong);line-height:1.5;font-feature-settings:"palt"}
+.sec-list span{display:block;font-size:13px;line-height:1.65;color:#555}
+
+/* faq */
+.faq-list{max-width:860px;margin:0 auto}
+.faq{border-bottom:1px solid var(--line)}
+.faq:first-child{border-top:1px solid var(--line)}
+.faq summary{display:flex;align-items:flex-start;gap:14px;padding:20px 8px;cursor:pointer;list-style:none;font-weight:700;font-size:16px;line-height:1.6;color:var(--ink-strong);font-feature-settings:"palt"}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex-shrink:0;width:12px;height:12px;margin:6px 6px 0 auto;border-right:2px solid #8a96a8;border-bottom:2px solid #8a96a8;transform:rotate(45deg);transition:transform .2s}
+.faq[open] summary::after{transform:rotate(-135deg);margin-top:10px}
+.qa{display:grid;place-items:center;flex-shrink:0;width:30px;height:30px;border-radius:50%;font:700 15px/1 "Helvetica Neue",Arial,sans-serif}
+.q{background:var(--jp-brand);color:#fff}
+.a{background:#fff1e8;color:var(--cta)}
+.faq-a{display:flex;gap:14px;padding:0 8px 22px}
+.faq-a p{margin:3px 0 0;color:#444}
+
+/* closing cta */
+.closing{position:relative;overflow:hidden;padding:64px 0;background:var(--jp-brand);color:#fff}
+.closing::before{content:"";position:absolute;right:-80px;top:-120px;width:380px;height:380px;border-radius:50%;background:rgba(255,255,255,.07)}
+.closing::after{content:"";position:absolute;left:-60px;bottom:-140px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.06)}
+.closing h2{position:relative;margin:0 0 6px;text-align:center;font-size:28px;color:#fff}
+.closing-lead{position:relative;margin:0 0 30px;text-align:center;font-size:15px;opacity:.95}
+.cta3{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cta3 > div{display:flex;flex-direction:column;align-items:center;padding:24px 20px;border-radius:14px;background:#fff;color:#333;text-align:center}
+.cta3 h3{display:flex;align-items:center;gap:6px;margin:0 0 4px;font-size:17px;color:var(--ink-strong)}
+.cta3 h3 .ic{color:var(--jp-brand)}
+.cta3 p{margin:0 0 14px;font-size:13px;color:#555;line-height:1.6}
+.cta3 .btn{width:100%;margin-top:auto}
+.tel-big{display:flex;align-items:center;gap:6px;margin-top:auto;color:var(--ink-strong);font:700 28px/1.1 "Helvetica Neue",Arial,sans-serif;letter-spacing:.02em}
+.tel-big:visited{color:var(--ink-strong)}
+.tel-big .ic{width:24px;height:24px;color:var(--jp-brand)}
+.tel-hours{margin:6px 0 0!important;font-size:12px!important}
+
+/* form */
+.form-sec{padding:88px 0;background:#f4f6fa}
+.form-grid{display:grid;grid-template-columns:320px 1fr;gap:40px;align-items:start}
+.doc{position:sticky;top:96px}
+.doc-cover{position:relative;width:240px;height:300px;margin:0 auto 22px;padding:22px 20px;border-radius:6px;background:#fff;box-shadow:12px 12px 0 #dde6f5,0 10px 24px rgba(23,35,59,.12);overflow:hidden}
+.doc-cover::before{content:"";position:absolute;left:0;top:0;bottom:0;width:8px;background:var(--jp-brand)}
+.doc-cover small{display:block;font-size:9px;color:var(--jp-brand);font-weight:700;letter-spacing:.14em}
+.doc-cover b{display:block;margin:8px 0 4px;font-size:19px;line-height:1.4;color:var(--ink-strong);font-feature-settings:"palt"}
+.doc-cover p{margin:0;font-size:10px;color:#666;line-height:1.5}
+.doc-cover svg{position:absolute;left:20px;right:16px;bottom:16px;width:200px;height:auto}
+.doc h3{margin:0 0 10px;font-size:16px;color:var(--ink-strong)}
+.doc .checks li{font-weight:400}
+.doc-note{margin:14px 0 0;font-size:12px;color:#666;line-height:1.7}
+.form-card{padding:36px 40px 40px;border-radius:16px;background:#fff;box-shadow:0 2px 6px rgba(23,35,59,.05)}
+.form-card h2{margin:0 0 4px;font-size:24px;color:var(--ink-strong)}
+.form-sub{margin:0 0 22px;color:#555;font-size:14px}
+.stepper{display:grid;grid-template-columns:repeat(3,1fr);margin:0 0 28px;padding:0;list-style:none;counter-reset:st}
+.stepper li{position:relative;counter-increment:st;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:13px;font-weight:700;color:#8a94a6}
+.stepper li::before{content:counter(st);position:relative;z-index:1;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#e7ecf3;color:#7a8597;font:700 14px/1 "Helvetica Neue",Arial,sans-serif}
+.stepper li:not(:first-child)::after{content:"";position:absolute;left:-50%;right:50%;top:16px;height:2px;background:#e1e7f0}
+.stepper li.is-done::before,.stepper li[aria-current=step]::before{background:var(--jp-brand);color:#fff}
+.stepper li.is-done,.stepper li[aria-current=step]{color:var(--brand-deep)}
+.stepper li.is-done + li::after,.stepper li[aria-current=step]:not(:first-child)::after{background:var(--jp-brand)}
+.form-note{margin:0 0 14px;font-size:13px;color:#555}
+.form-note .jp-req{margin:0 2px}
+.err-summary{margin:0 0 18px;padding:14px 18px;border-radius:8px;border:2px solid var(--jp-accent);background:#fff5f5}
+.err-summary p{margin:0 0 6px;font-weight:700;color:var(--jp-accent)}
+.err-summary ul{margin:0;padding-left:1.2em;font-size:14px}
+.err-summary a{color:var(--jp-accent);text-decoration:underline}
+.frow{display:grid;grid-template-columns:200px 1fr;border-top:1px solid #e5e9f0}
+.frow:last-of-type{border-bottom:1px solid #e5e9f0}
+.flabel{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;padding:18px 14px 18px 4px;font-size:14px;font-weight:700;color:#333;line-height:1.5}
+.flabel .jp-req,.flabel .jp-opt{flex-shrink:0;margin:0}
+.ffield{padding:12px 0 12px 16px}
+.jp-form .ffield input:not([type=checkbox]),.ffield select,.ffield textarea{width:100%;height:48px;padding:10px 12px;border:1px solid #c3ccd8;border-radius:6px;background:#fff;color:#333;transition:border-color .15s,box-shadow .15s}
+.ffield textarea{height:96px;resize:vertical}
+.ffield input::placeholder,.ffield textarea::placeholder{color:#8c95a3}
+.jp-form .ffield input:focus,.jp-form .ffield select:focus,.jp-form .ffield textarea:focus{border-color:var(--jp-brand);box-shadow:0 0 0 3px rgba(21,96,212,.15);outline:none}
+.ffield input:focus-visible,.ffield select:focus-visible,.ffield textarea:focus-visible{outline:2px solid #1a1a1a;outline-offset:1px}
+.jp-form .ffield [aria-invalid=true]{border-color:var(--jp-accent);background:#fff0f0}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pair label{display:flex;align-items:center;gap:8px;font-size:14px;color:#555}
+.pair label span{flex-shrink:0;width:2.2em;font-weight:700}
+.hint{margin:6px 0 0;font-size:12px;color:#666;line-height:1.5}
+.ffield .jp-error{margin:6px 0 0;font-weight:700}
+.privacy{margin:24px 0 0}
+.privacy-box{height:112px;overflow-y:auto;padding:12px 14px;border:1px solid #d5dce6;border-radius:6px;background:#fafbfc;font-size:12px;line-height:1.75;color:#555}
+.privacy-box h3{margin:0 0 4px;font-size:13px}
+.privacy-box p{margin:0 0 6px}
+.agree{display:flex;justify-content:center;align-items:center;gap:8px;margin:16px 0 0;font-size:15px;font-weight:700}
+.agree input{width:20px;height:20px;accent-color:var(--jp-brand)}
+#agree-err{text-align:center}
+.submit{text-align:center;margin-top:22px}
+.submit .btn{min-width:320px}
+.confirm-list{margin:0 0 24px;border-top:1px solid #e5e9f0}
+.confirm-list div{display:grid;grid-template-columns:200px 1fr;border-bottom:1px solid #e5e9f0}
+.confirm-list dt{padding:14px 4px;font-weight:700;font-size:14px;color:#555}
+.confirm-list dd{margin:0;padding:14px 16px;font-size:15px;white-space:pre-wrap}
+.pane-h{margin:0 0 8px;font-size:20px;color:var(--ink-strong)}
+.pane-h:focus{outline:none}
+.pane-h:focus-visible{outline:2px solid #1a1a1a}
+.btn-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.btn-row .btn{min-width:200px}
+.done{text-align:center;padding:20px 0}
+.done svg{width:88px;height:88px;margin-bottom:12px}
+.done p{margin:0 0 10px;color:#444}
+.done .contact-time{display:inline-block;margin:6px 0 18px;padding:10px 18px;border-radius:8px;background:var(--brand-tint);font-size:14px;color:var(--brand-deep);font-weight:700}
+
+/* footer */
+.ft{background:var(--navy);color:#c9d1de;font-size:13px}
+.ft a{color:#e4e9f1}
+.ft a:visited{color:#e4e9f1}
+.ft-top{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:32px;padding:56px 0 40px}
+.ft .logo{color:#fff}
+.ft .logo:visited{color:#fff}
+.ft .logo-txt span{color:#aeb8c8}
+.ft-co{margin:16px 0 0;font-style:normal;line-height:1.85;font-size:12.5px}
+.ft-co b{color:#fff;font-size:13px}
+.ft h3{margin:0 0 12px;font-size:13px;color:#fff;letter-spacing:.08em}
+.ft ul{margin:0;padding:0;list-style:none}
+.ft li{padding:3px 0}
+.ft-legal{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:18px 0 22px;border-top:1px solid rgba(255,255,255,.12);font-size:12px}
+.ft-legal nav{display:flex;flex-wrap:wrap;gap:4px 18px}
+.ft-legal small{color:#aeb8c8;font-size:11px}
+.pagetop{position:fixed;right:20px;bottom:20px;z-index:30;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:#fff;color:var(--jp-brand);border:1px solid #cfdcf3;box-shadow:0 4px 12px rgba(23,35,59,.12);font:700 10px/1 "Helvetica Neue",Arial,sans-serif;letter-spacing:.06em;text-decoration:none}
+.pagetop:visited{color:var(--jp-brand)}
+.pagetop:hover{text-decoration:none;background:var(--brand-tint)}
+.pagetop .ic{width:18px;height:18px;margin-bottom:-6px;stroke-width:2.4}
+.pagetop{transition:opacity .2s,visibility .2s}
+.pagetop.is-off{opacity:0;visibility:hidden}
+.sp-bar{display:none}
+
+/* ===== responsive ===== */
+@media (max-width:1180px){
+  .gnav{display:none}
+  .hero-in{grid-template-columns:1fr;gap:24px}
+  .hero-visual{margin:0 auto}
+}
+@media (max-width:900px){
+  .hd-tel{display:none}
+  .pains,.reason,.sec-grid,.form-grid{grid-template-columns:1fr}
+  .pains{gap:20px}
+  .pain-illust{max-width:320px;margin:0 auto;display:block}
+  .reason{gap:24px}
+  .reason:nth-child(even) .reason-art{order:0}
+  .features{grid-template-columns:repeat(2,1fr)}
+  .cases,.plans,.cta3{grid-template-columns:1fr}
+  .flow{grid-template-columns:1fr 1fr}
+  .flow li:not(:last-child)::after{display:none}
+  .doc{position:static}
+  .ft-top{grid-template-columns:1fr 1fr}
+}
+@media (max-width:767px){
+  :root{--jp-sticky-offset:64px}
+  .wrap{width:calc(100% - 32px)}
+  .hd-in{height:56px;gap:10px}
+  .logo svg{width:30px;height:30px}
+  .logo-txt b{font-size:18px}
+  .logo-txt span{font-size:10px}
+  .hd-cta .btn--outline{display:none}
+  .hd-cta .btn{min-height:38px;padding:4px 14px;font-size:13px}
+  .hd-cta .btn small{display:none}
+  .menu-btn{display:grid;place-items:center;width:44px;height:44px;margin-right:-8px;padding:0;border:0;background:none;color:#333;cursor:pointer}
+  .hd-right{gap:6px}
+  .gnav{position:absolute;left:0;right:0;top:56px;flex-direction:column;gap:0;padding:8px 16px 16px;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 12px 20px rgba(23,35,59,.08)}
+  .gnav.is-open{display:flex}
+  .gnav a{display:flex;justify-content:space-between;padding:14px 4px;border-bottom:1px solid #eef1f5;font-size:15px}
+  .gnav a::after{content:"›";color:#999}
+  .hero{padding:28px 0 36px}
+  .hero-tags{margin-bottom:12px}
+  .hero-tags li{font-size:12px;padding:3px 10px}
+  .hero h1{font-size:27px;line-height:1.45;margin-bottom:12px}
+  .hero-lead{font-size:15px;line-height:1.85}
+  .hero-cta{flex-direction:column;gap:10px;margin-top:20px}
+  .hero-cta .btn{width:100%;min-height:58px}
+  .trust{margin-top:22px;justify-content:space-between}
+  .trust li{padding:0 4px 0 0}
+  .trust li+li{padding-left:4px}
+  .laurel{display:none}
+  .trust-body span{font-size:11px}
+  .trust-body b{font-size:22px}
+  .trust-body b small{font-size:12px}
+  .hero-visual{zoom:.63}
+  .logos{padding:28px 0 32px}
+  .logo-wall{grid-template-columns:repeat(2,1fr);gap:8px}
+  .logo-wall li{height:52px;font-size:13px}
+  .sec{padding:60px 0}
+  .sec-head{margin-bottom:28px}
+  .sec-head h2{font-size:23px;padding-bottom:14px}
+  .sec-lead{font-size:14px;text-align:left}
+  .pain-list{grid-template-columns:1fr;gap:12px}
+  .pain-list li{font-size:14px;padding:14px 16px}
+  .solve{margin-top:44px;padding:18px 16px}
+  .solve p{font-size:18px}
+  .reason+.reason{margin-top:52px}
+  .reason-art{padding:12px;border-radius:16px}
+  .point b{font-size:36px}
+  .reason h3{font-size:21px}
+  .features{gap:10px}
+  .features li{padding:16px 14px}
+  .features h3{font-size:14px}
+  .features p{font-size:12px}
+  .f-ic{width:40px;height:40px;margin-bottom:8px}
+  .plan{padding:26px 20px 22px}
+  .plans{gap:26px}
+  .flow{grid-template-columns:1fr;gap:12px}
+  .flow li{display:grid;grid-template-columns:56px 1fr;gap:4px 14px;text-align:left;padding:18px}
+  .flow .step{grid-column:1/-1;justify-self:start}
+  .flow-ic{width:56px;height:56px;margin:4px 0 0;grid-row:span 2}
+  .flow-ic .ic{width:26px;height:26px}
+  .flow h3{margin:4px 0 2px}
+  .sec-list{grid-template-columns:1fr}
+  .faq summary{font-size:15px;gap:10px;padding:16px 2px}
+  .faq-a{gap:10px;padding:0 2px 18px}
+  .faq-a p{font-size:14px}
+  .closing{padding:48px 0}
+  .closing h2{font-size:22px}
+  .form-sec{padding:56px 0}
+  .doc-cover{width:200px;height:250px}
+  .doc-cover svg{width:160px}
+  .form-card{padding:24px 16px 28px;margin:0 -4px}
+  .form-card h2{font-size:21px}
+  .frow{grid-template-columns:1fr}
+  .flabel{justify-content:flex-start;padding:14px 0 0}
+  .ffield{padding:8px 0 14px}
+  .pair{gap:8px}
+  .pair label span{width:auto}
+  .submit .btn,.btn-row .btn{width:100%;min-width:0}
+  .confirm-list div{grid-template-columns:1fr}
+  .confirm-list dt{padding:12px 0 0}
+  .confirm-list dd{padding:2px 0 12px}
+  .ft-top{grid-template-columns:1fr 1fr;gap:24px 16px;padding:40px 0 28px}
+  .ft-top > div:first-child{grid-column:1/-1}
+  .ft-legal{flex-direction:column;align-items:flex-start}
+  body{padding-bottom:68px}
+  .sp-bar{position:fixed;left:0;right:0;bottom:0;z-index:35;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px 10px calc(8px + env(safe-area-inset-bottom));background:rgba(255,255,255,.97);border-top:1px solid var(--line)}
+  .sp-bar .btn{min-height:48px;padding:4px 8px;font-size:14px}
+  .pagetop{bottom:80px;right:12px;width:44px;height:44px}
+}
+</style>
+</head>
+<body id="top" class="jp-lp">
+<a class="skip" href="#main">本文へスキップ</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4M7.5 14h2M11 14h2M14.5 14h2M7.5 17h2M11 17h2"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 1.8h-15z"/><path d="M10 20.8a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-flow" viewBox="0 0 24 24"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M8.5 13l2.3 2.3 4.7-4.8M9 7.5h6"/></symbol>
+  <symbol id="i-sum" viewBox="0 0 24 24"><path d="M3 20.5h18M6 17v-5M10.5 17V7M15 17V9.5M19.5 17v-3"/></symbol>
+  <symbol id="i-yen" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 7l3.5 5 3.5-5M12 12v5.5M9 12.5h6M9 15h6"/></symbol>
+  <symbol id="i-store" viewBox="0 0 24 24"><path d="M3.5 9.5 5 4.5h14l1.5 5M4.5 9.5v10h15v-10M3.5 9.5h17M9.5 19.5v-5h5v5"/></symbol>
+  <symbol id="i-csv" viewBox="0 0 24 24"><path d="M14 3.5H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5z"/><path d="M14 3.5v5h5M12 11v6M9.5 14.5 12 17l2.5-2.5"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></symbol>
+  <symbol id="i-api" viewBox="0 0 24 24"><path d="M9 15l6-6M10.5 6.5l1.8-1.8a4 4 0 0 1 5.7 5.7l-1.8 1.8M13.5 17.5l-1.8 1.8a4 4 0 0 1-5.7-5.7l1.8-1.8"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.5-3.2 8.2-7.5 9.5-4.3-1.3-7.5-5-7.5-9.5V6z"/><path d="M8.8 12l2.2 2.2 4.3-4.4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-tel" viewBox="0 0 24 24"><path d="M5.5 3.5h3.3l1.8 4.6-2.3 1.5a11.5 11.5 0 0 0 6.1 6.1l1.5-2.3 4.6 1.8v3.3a2 2 0 0 1-2.1 2A16.5 16.5 0 0 1 3.5 5.6a2 2 0 0 1 2-2.1z"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3.5H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5z"/><path d="M14 3.5v5h5M9 13h6M9 16.5h4"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l5.5-3.5z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5M12 14.5v2"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="7" rx="1.5"/><rect x="4" y="13" width="16" height="7" rx="1.5"/><path d="M8 7.5h.01M8 16.5h.01M12 7.5h4M12 16.5h4"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M11 12l8.5-8.5M16 7l2.5 2.5M13.8 9.2l2 2"/></symbol>
+  <symbol id="i-headset" viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3.5" y="13" width="4" height="6" rx="1.5"/><rect x="16.5" y="13" width="4" height="6" rx="1.5"/><path d="M18.5 19c0 1.5-1.5 2.5-4.5 2.5"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4 2.8 19.5h18.4z"/><path d="M12 10v4.2M12 17h.01"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M6 14l6-6 6 6"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5.5h16v10H9l-4 3.5v-3.5H4z"/><path d="M8 10.5h.01M12 10.5h.01M16 10.5h.01"/></symbol>
+  <symbol id="i-people" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 19.5c.6-3.6 3-5.5 6-5.5s5.4 1.9 6 5.5"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14c2.4.2 4 1.8 4.5 4.5"/></symbol>
+  <symbol id="laurel" viewBox="0 0 16 46"><g fill="currentColor"><path d="M13.5 45C5 39 1.5 28 3.5 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><ellipse cx="3.2" cy="9" rx="2" ry="4.4" transform="rotate(12 3.2 9)"/><ellipse cx="1.8" cy="18.5" rx="1.9" ry="4.2" transform="rotate(-8 1.8 18.5)"/><ellipse cx="2.2" cy="28" rx="1.9" ry="4.2" transform="rotate(-22 2.2 28)"/><ellipse cx="5" cy="36.5" rx="1.9" ry="4" transform="rotate(-42 5 36.5)"/><ellipse cx="7" cy="16" rx="1.6" ry="3.4" transform="rotate(34 7 16)"/><ellipse cx="7.4" cy="25.5" rx="1.6" ry="3.4" transform="rotate(24 7.4 25.5)"/><ellipse cx="9.6" cy="34" rx="1.6" ry="3.2" transform="rotate(8 9.6 34)"/></g></symbol>
+</svg>
+
+<header class="hd">
+  <div class="wrap hd-in">
+    <a class="logo" href="#top" aria-label="はたらくログ トップへ">
+      <svg width="36" height="36" viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="10" fill="#1560d4"/><circle cx="18" cy="18" r="10" fill="none" stroke="#fff" stroke-width="2.6"/><path d="M13.6 18.2l3.2 3.2 6-6.4" fill="none" stroke="#ffc94a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="logo-txt"><b>はたらくログ</b><span>勤怠管理クラウド</span></span>
+    </a>
+    <nav class="gnav" id="gnav" aria-label="メインメニュー">
+      <a href="#features">機能</a>
+      <a href="#price">料金プラン</a>
+      <a href="#cases">導入事例</a>
+      <a href="#security">セキュリティ</a>
+      <a href="#faq">よくあるご質問</a>
+    </nav>
+    <div class="hd-right">
+      <div class="hd-tel">
+        <a href="tel:0120000000"><svg class="ic" aria-hidden="true"><use href="#i-tel"/></svg>0120-000-000</a>
+        <small>受付時間 平日9:00〜18:00</small>
+      </div>
+      <div class="hd-cta">
+        <a class="btn btn--outline" href="#contact">資料ダウンロード</a>
+        <a class="btn btn--cta" href="#contact">無料で試す</a>
+      </div>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="gnav" aria-label="メニューを開く"><svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<!-- hero -->
+<section class="hero" aria-labelledby="hero-h">
+  <div class="wrap hero-in">
+    <div>
+      <ul class="hero-tags">
+        <li><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>中小企業のための勤怠管理クラウド</li>
+        <li>法改正に自動対応</li>
+      </ul>
+      <h1 id="hero-h">勤怠の締め作業を<br><span class="hl">月20時間から2時間に</span>。<sup>※1</sup></h1>
+      <p class="hero-lead">スマホやICカードでの打刻から、残業時間の上限チェック、給与計算ソフトへの連携まで。はたらくログが、人事・総務の毎月の集計作業を自動化します。</p>
+      <div class="hero-cta">
+        <a class="btn btn--cta btn--lg" href="#contact"><span class="row"><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg>30日間 無料で試す</span><small>クレジットカード登録不要</small></a>
+        <a class="btn btn--outline btn--lg" href="#contact"><span class="row"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>資料ダウンロード</span><small>3分でわかる製品資料（無料）</small></a>
+      </div>
+      <ul class="trust" aria-label="導入実績">
+        <li><svg class="laurel" aria-hidden="true"><use href="#laurel"/></svg><div class="trust-body"><span>導入社数</span><b>12,000<small>社</small><sup>※2</sup></b></div><svg class="laurel laurel--r" aria-hidden="true"><use href="#laurel"/></svg></li>
+        <li><svg class="laurel" aria-hidden="true"><use href="#laurel"/></svg><div class="trust-body"><span>継続利用率</span><b>99.5<small>%</small><sup>※3</sup></b></div><svg class="laurel laurel--r" aria-hidden="true"><use href="#laurel"/></svg></li>
+        <li><svg class="laurel" aria-hidden="true"><use href="#laurel"/></svg><div class="trust-body"><span>使いやすいと回答</span><b>94<small>%</small><sup>※4</sup></b></div><svg class="laurel laurel--r" aria-hidden="true"><use href="#laurel"/></svg></li>
+      </ul>
+      <ul class="notes">
+        <li>※1 2025年度導入企業アンケート（回答386社）のうち、従業員50〜100名の企業の平均値</li>
+        <li>※2 2026年9月末時点の有料契約企業数　※3 2025年10月〜2026年9月の月次平均</li>
+        <li>※4 2026年8月 自社調べ（導入企業の管理者412名が回答）</li>
+        <li class="fict">※掲載している社名・数値・事例はすべて架空のサンプルです。</li>
+      </ul>
+    </div>
+
+    <div class="hero-visual">
+      <div class="mock" role="img" aria-label="はたらくログの管理画面。10月の総労働時間、平均残業時間、打刻漏れの件数、部署別の残業時間グラフ、従業員の打刻状況が並んでいる">
+        <div class="mk-top" aria-hidden="true"><i></i><i></i><i></i><span>app.hataraku-log.example</span></div>
+        <div class="mk-body" aria-hidden="true">
+          <div class="mk-side">
+            <div class="mk-brand"><svg width="16" height="16" viewBox="0 0 36 36"><rect width="36" height="36" rx="10" fill="#1560d4"/><circle cx="18" cy="18" r="10" fill="none" stroke="#fff" stroke-width="3"/><path d="M13.6 18.2l3.2 3.2 6-6.4" fill="none" stroke="#ffc94a" stroke-width="3.2" stroke-linecap="round"/></svg>はたらくログ</div>
+            <ul>
+              <li class="on">ダッシュボード</li>
+              <li>打刻一覧</li>
+              <li>申請・承認<em>3</em></li>
+              <li>シフト</li>
+              <li>休暇管理</li>
+              <li>集計・出力</li>
+              <li>設定</li>
+            </ul>
+          </div>
+          <div class="mk-main">
+            <div class="mk-h"><b>2026年10月の勤怠</b><span>10/14(水) 09:12更新</span></div>
+            <div class="mk-stats">
+              <div><span>総労働時間</span><b>1,284<small>h</small></b></div>
+              <div><span>平均残業時間</span><b>12.4<small>h</small></b></div>
+              <div class="warn"><span>打刻漏れ</span><b>2<small>件</small></b></div>
+            </div>
+            <div class="mk-chart">
+              <div class="mk-chart-h"><span>部署別の残業時間（平均）</span><em>上限 45h</em></div>
+              <div class="bars"><span style="height:46%"></span><span class="hi" style="height:58%"></span><span style="height:34%"></span><span class="near" style="height:84%"></span><span style="height:40%"></span><span style="height:26%"></span></div>
+              <div class="bar-lbl"><span>営業</span><span>開発</span><span>総務</span><span>物流</span><span>店舗</span><span>経理</span></div>
+            </div>
+            <table class="mk-table">
+              <tr><th>氏名</th><th>出勤</th><th>退勤</th><th>状態</th></tr>
+              <tr><td>佐藤 美咲</td><td>08:58</td><td>－</td><td><span class="st st--on">勤務中</span></td></tr>
+              <tr><td>鈴木 大輔</td><td>09:02</td><td>－</td><td><span class="st st--on">勤務中</span></td></tr>
+              <tr><td>高橋 結衣</td><td>－</td><td>－</td><td><span class="st st--leave">有休</span></td></tr>
+              <tr><td>伊藤 翔太</td><td>－</td><td>－</td><td><span class="st st--miss">未打刻</span></td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="phone" aria-hidden="true">
+        <p class="ph-date">10月14日（水）</p>
+        <p class="ph-time">08:58</p>
+        <p class="ph-place"><svg class="ic"><use href="#i-pin"/></svg>本社オフィス</p>
+        <div class="ph-in">出勤</div>
+        <div class="ph-sub"><span>休憩</span><span>退勤</span></div>
+      </div>
+      <div class="toast toast--a" aria-hidden="true"><span class="dot"><svg class="ic"><use href="#i-bell"/></svg></span><span><b>承認待ちの申請が3件</b>打刻修正 2件・有休 1件</span></div>
+      <div class="toast toast--b" aria-hidden="true"><span class="dot"><svg class="ic" style="stroke-width:3"><use href="#i-check"/></svg></span><span><b>出勤しました 08:58</b>本社オフィス</span></div>
+      <svg class="hero-person" viewBox="0 0 120 220" aria-hidden="true">
+        <ellipse cx="62" cy="213" rx="40" ry="5" fill="#d6e2f7"/>
+        <path d="M51 140 47 203M71 140 76 203" stroke="#2b3a67" stroke-width="13" stroke-linecap="round"/>
+        <path d="M38 207h13M73 207h13" stroke="#1d2233" stroke-width="7" stroke-linecap="round"/>
+        <path d="M80 94q14 18 6 36" fill="none" stroke="#1560d4" stroke-width="12" stroke-linecap="round"/>
+        <rect x="68" y="114" width="24" height="32" rx="3" fill="#ffc94a" transform="rotate(-12 80 130)"/>
+        <rect x="72" y="119" width="16" height="20" rx="1.5" fill="#fff" transform="rotate(-12 80 130)"/>
+        <circle cx="84" cy="131" r="5.5" fill="#f3c9a8"/>
+        <path d="M37 86c7-9 39-9 46 0l9 62H28z" fill="#1560d4"/>
+        <path d="M53 80h14l-7 13z" fill="#fff"/>
+        <path d="M41 94 27 70 21 44" fill="none" stroke="#1560d4" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="20" cy="40" r="6.5" fill="#f3c9a8"/>
+        <rect x="54" y="66" width="13" height="17" rx="5" fill="#e3b08d"/>
+        <circle cx="60" cy="53" r="18" fill="#f3c9a8"/>
+        <path d="M41 56c-3-17 7-28 20-28 12 0 22 10 19 27-3-7-8-12-14-13-6 6-15 9-25 14z" fill="#2e2a36"/>
+        <path d="M42 52c-1 9 0 17 3 22l5-11zM79 52c1 9 0 17-3 22l-5-11z" fill="#2e2a36"/>
+        <circle cx="53" cy="57" r="1.9" fill="#2e2a36"/><circle cx="67" cy="57" r="1.9" fill="#2e2a36"/>
+        <path d="M55 63.5q5 4 10 0" fill="none" stroke="#2e2a36" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="49" cy="61" r="2.6" fill="#f6a99a" opacity=".55"/><circle cx="71" cy="61" r="2.6" fill="#f6a99a" opacity=".55"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- logo wall -->
+<section class="logos" aria-labelledby="logos-h">
+  <div class="wrap">
+    <h2 class="logos-h" id="logos-h">業種・規模を問わず、<b class="num">12,000</b>社以上<span class="sup">※2</span>にご利用いただいています</h2>
+    <ul class="logo-wall">
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 19 8.5 7l4.5 7.5L16 10l6.5 9z" fill="#5d6676"/></svg>やまびこ運輸</li>
+      <li class="lw-small"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="#5d6676" stroke-width="2"/><path d="M5 13.5c2.3-2.4 4.6 2.4 7 0s4.7-2.4 7 0" fill="none" stroke="#5d6676" stroke-width="2" stroke-linecap="round"/></svg>みなとベーカリー</li>
+      <li class="lw-wide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17a9 9 0 0 1 18 0z" fill="#5d6676"/><path d="M2 20h20" stroke="#5d6676" stroke-width="2"/></svg>東雲建設</li>
+      <li class="lw-latin"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="#5d6676"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2" stroke="#5d6676" stroke-width="2" stroke-linecap="round"/></svg>HINATA HOTELS</li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.6 6.4 6.9.5-5.3 4.4 1.7 6.7L12 16.3 6.1 20l1.7-6.7L2.5 8.9l6.9-.5z" fill="#5d6676"/></svg>北斗フーズ</li>
+      <li class="lw-small"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5V21H3z" fill="none" stroke="#5d6676" stroke-width="2" stroke-linejoin="round"/><path d="M9.5 21v-5.5h5V21" fill="none" stroke="#5d6676" stroke-width="2"/></svg>あおぞら不動産</li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 14c0-5 5-8 10-8s9 3 10 8c-3 4-8 5-12 5-5 0-8-2-8-5z" fill="#5d6676"/><circle cx="17" cy="11" r="1.2" fill="#fff"/></svg>くじら印刷</li>
+      <li class="lw-latin"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="12" rx="10" ry="4.5" fill="none" stroke="#5d6676" stroke-width="2" transform="rotate(-25 12 12)"/><circle cx="12" cy="12" r="3.5" fill="#5d6676"/></svg>GINGA SYSTEMS</li>
+      <li class="lw-small"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c4 4 6 7 6 10a6 6 0 0 1-12 0c0-3 2-6 6-10z" fill="#5d6676"/></svg>ひだまり会</li>
+      <li class="lw-small"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V9M12 13c-4 0-7-3-7-8 4 0 7 3 7 8zM12 11c0-4 3-7 7-7 0 4-3 7-7 7z" fill="#5d6676" stroke="#5d6676" stroke-width="1.6" stroke-linejoin="round"/></svg>森と水の工務店</li>
+    </ul>
+    <p class="notes">※掲載している社名・数値・事例はすべて架空のサンプルです。</p>
+  </div>
+</section>
+
+<!-- pains -->
+<section class="sec sec--tint" aria-labelledby="pain-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="sec-en">PROBLEM</p>
+      <h2 id="pain-h">こんなお悩みありませんか？</h2>
+    </div>
+    <div class="pains">
+      <svg class="pain-illust" viewBox="0 0 300 250" role="img" aria-label="締め日を前に、タイムカードの束を前に頭を抱える担当者のイラスト">
+        <circle cx="150" cy="128" r="112" fill="#e3ecfb"/>
+        <g transform="translate(212 34)">
+          <rect width="62" height="60" rx="6" fill="#fff" stroke="#c8d6ee" stroke-width="2"/>
+          <path d="M0 6a6 6 0 0 1 6-6h50a6 6 0 0 1 6 6v10H0z" fill="#ff8a6b"/>
+          <text x="31" y="12" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">10月</text>
+          <g fill="#c8d6ee"><circle cx="11" cy="25" r="2"/><circle cx="21" cy="25" r="2"/><circle cx="31" cy="25" r="2"/><circle cx="41" cy="25" r="2"/><circle cx="51" cy="25" r="2"/><circle cx="11" cy="35" r="2"/><circle cx="21" cy="35" r="2"/><circle cx="31" cy="35" r="2"/><circle cx="41" cy="35" r="2"/><circle cx="51" cy="35" r="2"/><circle cx="11" cy="45" r="2"/><circle cx="21" cy="45" r="2"/><circle cx="31" cy="45" r="2"/></g>
+          <circle cx="41" cy="46" r="7" fill="none" stroke="#e0703a" stroke-width="2"/>
+          <text x="41" y="49" text-anchor="middle" font-size="7.5" font-weight="700" fill="#e0703a">31</text>
+        </g>
+        <path d="M118 36c-6-6 2-14 8-9 3-8 15-6 14 2 7-3 13 5 7 10" fill="none" stroke="#8a96aa" stroke-width="2" stroke-linecap="round"/>
+        <path d="M128 30q4 4 0 8M138 28q4 5 0 9" fill="none" stroke="#8a96aa" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M106 168c0-28 18-44 44-44s44 16 44 44z" fill="#5a8be0"/>
+        <path d="M140 126h20l-10 13z" fill="#fff"/>
+        <path d="M112 146c-14-16-8-38 14-48" fill="none" stroke="#5a8be0" stroke-width="13" stroke-linecap="round"/>
+        <path d="M188 146c14-16 8-38-14-48" fill="none" stroke="#5a8be0" stroke-width="13" stroke-linecap="round"/>
+        <rect x="143" y="104" width="14" height="18" rx="5" fill="#e3b08d"/>
+        <circle cx="150" cy="88" r="22" fill="#f3c9a8"/>
+        <path d="M128 86c-2-17 9-26 22-26 14 0 24 9 22 25-4-8-10-11-17-11-9 0-18 4-27 12z" fill="#3a3340"/>
+        <circle cx="127" cy="96" r="7" fill="#f3c9a8"/><circle cx="173" cy="96" r="7" fill="#f3c9a8"/>
+        <path d="M137 87l7 2M163 87l-7 2" stroke="#3a3340" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="142" cy="94" r="2" fill="#3a3340"/><circle cx="158" cy="94" r="2" fill="#3a3340"/>
+        <path d="M144 104q3-3 6 0t6 0" fill="none" stroke="#3a3340" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M184 70q5 7 0 10-5-3 0-10z" fill="#7cc4f2"/>
+        <path d="M118 74q4 5 0 8-4-3 0-8z" fill="#7cc4f2"/>
+        <rect x="34" y="166" width="232" height="10" rx="3" fill="#b9c8e0"/>
+        <path d="M52 176v48M248 176v48" stroke="#b9c8e0" stroke-width="7" stroke-linecap="round"/>
+        <rect x="116" y="134" width="68" height="34" rx="4" fill="#dfe6f1"/>
+        <rect x="108" y="164" width="84" height="4" rx="2" fill="#c9d3e3"/>
+        <circle cx="150" cy="151" r="4" fill="#c9d3e3"/>
+        <g transform="rotate(-8 74 150)">
+          <rect x="48" y="138" width="52" height="30" rx="2" fill="#fff" stroke="#d3dcea" stroke-width="1.5"/>
+          <rect x="52" y="132" width="52" height="30" rx="2" fill="#fff" stroke="#d3dcea" stroke-width="1.5"/>
+          <rect x="56" y="126" width="52" height="30" rx="2" fill="#fffaf0" stroke="#e6d6b5" stroke-width="1.5"/>
+          <text x="82" y="137" text-anchor="middle" font-size="7" font-weight="700" fill="#9a6b1f">タイムカード</text>
+          <path d="M62 143h40M62 149h28" stroke="#e6d6b5" stroke-width="2" stroke-linecap="round"/>
+        </g>
+        <g transform="translate(206 140)"><rect width="22" height="26" rx="4" fill="#fff" stroke="#c8d6ee" stroke-width="2"/><path d="M22 7h4a4 4 0 0 1 0 9h-4" fill="none" stroke="#c8d6ee" stroke-width="2"/><path d="M6 -4q3-4 0-8M14 -4q3-4 0-8" fill="none" stroke="#c8d6ee" stroke-width="1.6" stroke-linecap="round"/></g>
+      </svg>
+      <ul class="pain-list">
+        <li><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg>紙やExcelのタイムカード集計に、毎月まる2日かかっている</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg>打刻漏れの確認と修正依頼が、締め日の直前に集中する</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg>残業時間が上限に近い社員に、月末まで気づけない</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg>有給休暇の「年5日の取得義務」を追いきれていない</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg>店舗や拠点ごとに勤務ルールが違い、管理しきれない</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg>法改正のたびに、集計ルールの見直しが必要になる</li>
+      </ul>
+    </div>
+    <div class="solve">
+      <p>その悩み、はたらくログがまとめて解決します<span>打刻から集計、給与計算への連携まで、ひとつのクラウドで完結</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- reasons -->
+<section class="sec" id="reasons" aria-labelledby="reason-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="sec-en">REASON</p>
+      <h2 id="reason-h">はたらくログが選ばれる3つの理由</h2>
+    </div>
+
+    <div class="reason">
+      <div class="reason-art">
+        <svg viewBox="0 0 400 260" role="img" aria-label="スマートフォン、ICカード、パソコンのどれからでも打刻できることを表すイラスト">
+          <circle cx="200" cy="130" r="104" fill="#fff" opacity=".7"/>
+          <g transform="translate(150 22)">
+            <rect width="100" height="210" rx="16" fill="#1f2633"/>
+            <rect x="6" y="8" width="88" height="194" rx="11" fill="#fff"/>
+            <text x="50" y="40" text-anchor="middle" font-size="9" fill="#777">10月14日（水）</text>
+            <text x="50" y="66" text-anchor="middle" font-size="24" font-weight="700" fill="#1f2633" font-family="Arial,sans-serif">08:58</text>
+            <circle cx="50" cy="118" r="30" fill="#1560d4"/>
+            <circle cx="50" cy="118" r="37" fill="none" stroke="#1560d4" stroke-opacity=".18" stroke-width="6"/>
+            <text x="50" y="123" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">出勤</text>
+            <rect x="16" y="166" width="32" height="16" rx="8" fill="#eef2f8"/><text x="32" y="177" text-anchor="middle" font-size="7.5" fill="#555">休憩</text>
+            <rect x="52" y="166" width="32" height="16" rx="8" fill="#eef2f8"/><text x="68" y="177" text-anchor="middle" font-size="7.5" fill="#555">退勤</text>
+          </g>
+          <g transform="translate(28 120) rotate(-14)">
+            <rect width="98" height="62" rx="8" fill="#28a98c"/>
+            <rect x="12" y="16" width="20" height="15" rx="3" fill="#ffd77a"/>
+            <path d="M12 45h50M12 52h30" stroke="#fff" stroke-opacity=".7" stroke-width="3" stroke-linecap="round"/>
+            <path d="M74 14q8 8 0 16M82 9q12 13 0 26" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+          </g>
+          <text x="80" y="104" text-anchor="middle" font-size="12" font-weight="700" fill="#17795f">ICカード</text>
+          <g transform="translate(282 70)">
+            <rect width="92" height="60" rx="5" fill="#fff" stroke="#c6d4ec" stroke-width="2"/>
+            <rect x="8" y="8" width="76" height="40" rx="2" fill="#edf3fe"/>
+            <path d="M16 18h30M16 26h50M16 34h40" stroke="#9dbdf0" stroke-width="3" stroke-linecap="round"/>
+            <path d="M-8 60h108l-6 8H-2z" fill="#c6d4ec"/>
+          </g>
+          <text x="328" y="156" text-anchor="middle" font-size="12" font-weight="700" fill="#1560d4">パソコン</text>
+          <g transform="translate(296 176)">
+            <path d="M16 40S2 27 2 16a14 14 0 0 1 28 0c0 11-14 24-14 24z" fill="#ff8a6b"/>
+            <circle cx="16" cy="16" r="5" fill="#fff"/>
+          </g>
+          <text x="352" y="200" text-anchor="middle" font-size="12" font-weight="700" fill="#c4512a">GPS</text>
+        </svg>
+      </div>
+      <div>
+        <p class="point">POINT <b>01</b></p>
+        <h3>スマホでもICカードでも、<br>打刻はかざすだけ</h3>
+        <p>出社、直行直帰、在宅勤務など、働き方に合わせて打刻方法を選べます。GPSによる位置の記録や、交通系ICカードをかざすだけの打刻にも対応。打刻を忘れた社員には、アプリとメールで自動でお知らせします。</p>
+        <ul class="checks">
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>スマホ・PC・ICカード・顔認証の4つの打刻方法</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>打刻漏れを本人と上長に自動でお知らせ</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="reason">
+      <div class="reason-art">
+        <svg viewBox="0 0 400 260" role="img" aria-label="残業時間が上限に近づくとアラートが届くことを表すグラフのイラスト">
+          <rect x="34" y="34" width="250" height="190" rx="14" fill="#fff"/>
+          <text x="54" y="62" font-size="12" font-weight="700" fill="#1f2633">残業時間の推移</text>
+          <text x="264" y="62" text-anchor="end" font-size="10" fill="#888">10月</text>
+          <path d="M54 92h210" stroke="#e0703a" stroke-width="2" stroke-dasharray="6 5"/>
+          <text x="264" y="86" text-anchor="end" font-size="10" font-weight="700" fill="#c2410c">上限 45時間</text>
+          <path d="M54 204h210" stroke="#dfe5ee" stroke-width="2"/>
+          <g fill="#9dbdf0"><rect x="64" y="170" width="22" height="34" rx="4"/><rect x="98" y="156" width="22" height="48" rx="4"/><rect x="132" y="146" width="22" height="58" rx="4"/><rect x="166" y="132" width="22" height="72" rx="4"/></g>
+          <rect x="200" y="112" width="22" height="92" rx="4" fill="#f08a4b"/>
+          <rect x="234" y="150" width="22" height="54" rx="4" fill="#e3ecfb" stroke="#9dbdf0" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <g transform="translate(196 136)">
+            <rect width="176" height="58" rx="12" fill="#fff" stroke="#f3c3a6" stroke-width="2"/>
+            <circle cx="28" cy="29" r="17" fill="#fff1e8"/>
+            <path d="M21 33v-6a7 7 0 0 1 14 0v6l2 2H19z M25 38a3 3 0 0 0 6 0" fill="none" stroke="#c2410c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="54" y="25" font-size="11" font-weight="700" fill="#1f2633">上限まであと5時間です</text>
+            <text x="54" y="42" font-size="9.5" fill="#666">物流部 伊藤さん（40時間）</text>
+          </g>
+          <g transform="translate(306 30)">
+            <circle cx="30" cy="30" r="30" fill="#ffc94a"/>
+            <path d="M19 37v-9a11 11 0 0 1 22 0v9l3 3H16z M26 44a4 4 0 0 0 8 0" fill="none" stroke="#7a4b00" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="46" cy="14" r="8" fill="#cc4b0c"/><text x="46" y="18" text-anchor="middle" font-size="10" font-weight="700" fill="#fff" font-family="Arial,sans-serif">1</text>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <p class="point">POINT <b>02</b></p>
+        <h3>残業の上限超えを、<br>起きる前に防ぐ</h3>
+        <p>36協定の上限時間を設定しておけば、上限に近づいた社員と上長に自動でアラートを送ります。月末になって慌てて勤務を調整する必要はありません。労働時間に関する法改正には、アップデートで自動対応します。</p>
+        <ul class="checks">
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>月・年・複数月平均の上限を自動でチェック</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>有給休暇の年5日取得もあわせて管理</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="reason">
+      <div class="reason-art">
+        <svg viewBox="0 0 400 260" role="img" aria-label="はたらくログの勤怠データが給与計算ソフトへ自動で連携されることを表すイラスト">
+          <g transform="translate(26 54)">
+            <rect width="140" height="150" rx="12" fill="#fff"/>
+            <path d="M0 12a12 12 0 0 1 12-12h116a12 12 0 0 1 12 12v18H0z" fill="#1560d4"/>
+            <text x="14" y="20" font-size="11" font-weight="700" fill="#fff">はたらくログ</text>
+            <g fill="#e3ecfb"><rect x="14" y="44" width="112" height="16" rx="4"/><rect x="14" y="68" width="112" height="16" rx="4"/><rect x="14" y="92" width="112" height="16" rx="4"/></g>
+            <g fill="#9dbdf0"><rect x="20" y="49" width="40" height="6" rx="3"/><rect x="20" y="73" width="54" height="6" rx="3"/><rect x="20" y="97" width="34" height="6" rx="3"/></g>
+            <rect x="14" y="118" width="112" height="20" rx="10" fill="#1560d4"/>
+            <text x="70" y="132" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff">締め処理完了</text>
+          </g>
+          <g transform="translate(234 54)">
+            <rect width="140" height="150" rx="12" fill="#fff"/>
+            <path d="M0 12a12 12 0 0 1 12-12h116a12 12 0 0 1 12 12v18H0z" fill="#28a98c"/>
+            <text x="14" y="20" font-size="11" font-weight="700" fill="#fff">給与計算ソフト</text>
+            <text x="14" y="54" font-size="9" fill="#777">10月分 支給額</text>
+            <text x="14" y="76" font-size="18" font-weight="700" fill="#1f2633" font-family="Arial,sans-serif">48名分</text>
+            <path d="M14 92h112M14 108h112M14 124h80" stroke="#e6ece9" stroke-width="8" stroke-linecap="round"/>
+          </g>
+          <path class="flowline" d="M170 116h60" fill="none" stroke="#1560d4" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 8"/>
+          <path d="M222 108l9 8-9 8" fill="none" stroke="#1560d4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <path class="flowline" d="M230 150h-60" fill="none" stroke="#28a98c" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 8"/>
+          <path d="M178 142l-9 8 9 8" fill="none" stroke="#28a98c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <g transform="translate(176 194)"><circle cx="24" cy="24" r="22" fill="#ffc94a"/><path d="M14 24l7 7 13-14" fill="none" stroke="#7a4b00" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></g>
+          <text x="200" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="#1f2633">ボタンひとつで連携</text>
+        </svg>
+      </div>
+      <div>
+        <p class="point">POINT <b>03</b></p>
+        <h3>給与計算まで、<br>ボタンひとつで連携</h3>
+        <p>締め処理が終わった勤怠データは、主要な給与計算ソフトの形式に合わせてそのまま出力できます。API連携を使えば、CSVファイルの受け渡しも不要です。手入力による転記ミスがなくなります。</p>
+        <ul class="checks">
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>主要な給与計算ソフト向けの出力形式を用意</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>部署・雇用形態ごとの集計もワンクリック</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- features -->
+<section class="sec sec--tint" id="features" aria-labelledby="feat-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="sec-en">FEATURES</p>
+      <h2 id="feat-h">機能一覧</h2>
+      <p class="sec-lead">勤怠管理に必要な機能を、追加費用なしでご利用いただけます（プランにより一部異なります）。</p>
+    </div>
+    <ul class="features">
+      <li><span class="f-ic"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg></span><h3>打刻</h3><p>スマホ・PC・ICカード・顔認証に対応。GPSで打刻場所も記録します。</p></li>
+      <li><span class="f-ic"><svg class="ic" aria-hidden="true"><use href="#i-cal"/></svg></span><h3>シフト作成・管理</h3><p>希望シフトの回収から作成、公開までをアプリで完結。</p></li>
+      <li><span class="f-ic"><svg class="ic" aria-hidden="true"><use href="#i-sun"/></svg></span><h3>休暇・有給休暇管理</h3><p>付与日数と残日数を自動計算。年5日の取得義務も管理できます。</p></li>
+      <li><span class="f-ic"><svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg></span><h3>残業時間アラート</h3><p>36協定の上限に近づくと、本人と上長に自動で通知します。</p></li>
+      <li><span class="f-ic"><svg class="ic" aria-hidden="true"><use href="#i-flow"/></svg></span><h3>申請・承認ワークフロー</h3><p>打刻修正、残業、休暇の申請と承認をスマホから。</p></li>
+      <li><span class="f-ic"><svg class="ic" aria-hidden="true"><use href="#i-sum"/></svg></span><h3>労働時間の自動集計</h3><p>深夜・休日・変形労働時間制も、ルールに沿って自動で集計。</p></li>
+      <li><span class="f-ic"><svg class="ic" aria-hidden="true"><use href="#i-yen"/></svg></span><h3>給与計算ソフト連携</h3><p>主要な給与計算ソフトの形式で、勤怠データを出力できます。</p></li>
+      <li><span class="f-ic"><svg class="ic" aria-hidden="true"><use href="#i-store"/></svg></span><h3>多拠点・多店舗管理</h3><p>拠点ごとに勤務ルールと管理者を設定。本部で一括確認できます。</p></li>
+      <li><span class="f-ic"><svg class="ic" aria-hidden="true"><use href="#i-csv"/></svg></span><h3>CSV・PDF出力</h3><p>出勤簿や賃金台帳の作成に必要なデータをすぐに出力。</p></li>
+      <li><span class="f-ic"><svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg></span><h3>多言語表示</h3><p>英語・ベトナム語・中国語に対応。外国籍の社員も迷わず使えます。</p></li>
+      <li><span class="f-ic"><svg class="ic" aria-hidden="true"><use href="#i-api"/></svg></span><h3>API連携</h3><p>人事システムや社内ツールと、勤怠データを自動で同期。</p></li>
+      <li><span class="f-ic"><svg class="ic" aria-hidden="true"><use href="#i-list"/></svg></span><h3>操作ログ・監査</h3><p>誰が・いつ・何を変更したかを5年間保存します。</p></li>
+    </ul>
+    <p class="more-c"><a class="btn btn--outline" href="#contact">すべての機能を資料で見る</a></p>
+  </div>
+</section>
+
+<!-- cases -->
+<section class="sec" id="cases" aria-labelledby="case-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="sec-en">CASE STUDY</p>
+      <h2 id="case-h">導入事例</h2>
+      <p class="sec-lead">運輸、小売、介護・保育など、さまざまな業種で毎月の締め作業が変わりました。</p>
+    </div>
+    <ul class="cases">
+      <li class="case">
+        <div class="case-top">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" fill="#dbe7fb"/><path d="M12 64c2-14 10-20 20-20s18 6 20 20z" fill="#1560d4"/><path d="M27 44h10l-5 8z" fill="#fff"/><rect x="27" y="34" width="10" height="11" rx="4" fill="#e3b08d"/><circle cx="32" cy="27" r="12" fill="#f3c9a8"/><path d="M19 28c-1-12 6-17 13-17 9 0 14 6 13 16-2-5-6-8-11-8-5 3-10 5-15 9z" fill="#3a3340"/><path d="M20 27c0 8 1 12 3 15l2-9zM44 27c0 8-1 12-3 15l-2-9z" fill="#3a3340"/><circle cx="27.5" cy="29" r="1.4" fill="#3a3340"/><circle cx="36.5" cy="29" r="1.4" fill="#3a3340"/><path d="M29 33.5q3 2.4 6 0" fill="none" stroke="#3a3340" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <div><p class="case-co">やまびこ運輸株式会社</p><p class="case-tag">運輸業／従業員320名／全国6拠点</p></div>
+        </div>
+        <div class="case-body">
+          <h3>紙のタイムカード集計がなくなり、締め作業が4日から半日に</h3>
+          <p class="result"><span class="result-l">締め作業</span><span class="result-v"><b>4</b>日</span><svg class="ic arrow" aria-hidden="true"><use href="#i-arrow"/></svg><span class="result-v"><b>0.5</b>日</span></p>
+          <p class="case-person">管理本部 人事課 課長<br><b>田中 美穂 様</b></p>
+          <a class="jp-more" href="#cases">事例を詳しく見る</a>
+        </div>
+      </li>
+      <li class="case">
+        <div class="case-top">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" fill="#fdecd5"/><path d="M12 64c2-14 10-20 20-20s18 6 20 20z" fill="#28a98c"/><path d="M26 44h12l-6 9z" fill="#fff"/><rect x="27" y="34" width="10" height="11" rx="4" fill="#c98e69"/><circle cx="32" cy="27" r="12" fill="#e2b08c"/><path d="M20 25c0-9 5-14 12-14s12 5 12 13c-3-4-8-6-12-6-4 0-9 2-12 7z" fill="#2e2a36"/><circle cx="27.5" cy="29" r="1.4" fill="#2e2a36"/><circle cx="36.5" cy="29" r="1.4" fill="#2e2a36"/><path d="M29 33.5q3 2.4 6 0" fill="none" stroke="#2e2a36" stroke-width="1.4" stroke-linecap="round"/><path d="M24 26h6M34 26h6" stroke="#2e2a36" stroke-width="1.3"/><rect x="23" y="25" width="7.5" height="5.5" rx="2" fill="none" stroke="#2e2a36" stroke-width="1.2"/><rect x="33.5" y="25" width="7.5" height="5.5" rx="2" fill="none" stroke="#2e2a36" stroke-width="1.2"/></svg>
+          <div><p class="case-co">株式会社みなとベーカリー</p><p class="case-tag">小売・飲食／従業員240名／18店舗</p></div>
+        </div>
+        <div class="case-body">
+          <h3>店舗ごとのシフトと勤怠をひとつの画面で。店長の事務作業が大きく減りました</h3>
+          <p class="result"><span class="result-l">店長の事務作業</span><span class="result-v">月<b>10</b>時間 削減</span></p>
+          <p class="case-person">店舗運営部 部長<br><b>佐々木 健 様</b></p>
+          <a class="jp-more" href="#cases">事例を詳しく見る</a>
+        </div>
+      </li>
+      <li class="case">
+        <div class="case-top">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" fill="#e2f4ee"/><path d="M12 64c2-14 10-20 20-20s18 6 20 20z" fill="#ff8a6b"/><path d="M27 44h10l-5 8z" fill="#fff"/><rect x="27" y="34" width="10" height="11" rx="4" fill="#e3b08d"/><circle cx="32" cy="27" r="12" fill="#f3c9a8"/><path d="M20 27c-1-11 5-16 12-16 8 0 13 5 12 15-3-5-8-7-13-7-4 2-8 4-11 8z" fill="#6b4a3a"/><circle cx="44" cy="17" r="5" fill="#6b4a3a"/><circle cx="27.5" cy="29" r="1.4" fill="#3a3340"/><circle cx="36.5" cy="29" r="1.4" fill="#3a3340"/><path d="M29 33.5q3 2.4 6 0" fill="none" stroke="#3a3340" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <div><p class="case-co">社会福祉法人ひだまり会</p><p class="case-tag">介護・保育／従業員150名／5施設</p></div>
+        </div>
+        <div class="case-body">
+          <h3>夜勤を含む変形労働時間制も、設定するだけで正確に集計</h3>
+          <p class="result"><span class="result-l">打刻修正の依頼</span><span class="result-v"><b>85</b>%減</span></p>
+          <p class="case-person">法人本部 総務課 主任<br><b>山口 由紀 様</b></p>
+          <a class="jp-more" href="#cases">事例を詳しく見る</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- pricing -->
+<section class="sec sec--tint" id="price" aria-labelledby="price-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="sec-en">PRICE</p>
+      <h2 id="price-h">料金プラン</h2>
+      <p class="sec-lead">初期費用は0円。使う人数分だけの月額料金で、30日間の無料トライアルから始められます。</p>
+    </div>
+    <div class="plans">
+      <div class="plan">
+        <h3>ライト</h3>
+        <p class="plan-for">打刻と集計をシンプルに始めたい企業に</p>
+        <p class="plan-price"><b>200</b><span class="yen">円</span><span class="per">／ユーザー・月</span></p>
+        <p class="plan-tax"><span class="tag">税抜</span>税込220円</p>
+        <ul class="checks">
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>打刻（スマホ・PC・ICカード）</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>勤怠の自動集計・CSV出力</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>有給休暇の管理</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>メールサポート</li>
+        </ul>
+        <a class="btn btn--outline" href="#contact">このプランで試す</a>
+      </div>
+      <div class="plan plan--rec">
+        <span class="plan-badge">おすすめ</span>
+        <h3>スタンダード</h3>
+        <p class="plan-for">シフトや申請もまとめて管理したい企業に</p>
+        <p class="plan-price"><b>300</b><span class="yen">円</span><span class="per">／ユーザー・月</span></p>
+        <p class="plan-tax"><span class="tag">税抜</span>税込330円</p>
+        <ul class="checks">
+          <li class="lead"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>ライトの全機能に加えて</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>シフト作成・管理</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>申請・承認ワークフロー</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>残業時間アラート</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>給与計算ソフト連携</li>
+        </ul>
+        <a class="btn btn--cta" href="#contact">このプランで試す</a>
+      </div>
+      <div class="plan">
+        <h3>プロフェッショナル</h3>
+        <p class="plan-for">多拠点・大人数での運用を考えている企業に</p>
+        <p class="plan-price"><b>500</b><span class="yen">円</span><span class="per">／ユーザー・月</span></p>
+        <p class="plan-tax"><span class="tag">税抜</span>税込550円</p>
+        <ul class="checks">
+          <li class="lead"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>スタンダードの全機能に加えて</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>API連携</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>SSO（SAML認証）</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>操作ログの5年間保存</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>専任担当による導入・運用サポート</li>
+        </ul>
+        <a class="btn btn--outline" href="#contact">お見積もりを依頼する</a>
+      </div>
+    </div>
+    <ul class="price-notes">
+      <li>※表示価格は1ユーザーあたりの月額料金です。税抜価格と、消費税10%を含む税込価格を併記しています。</li>
+      <li>※最低利用料金は月額3,000円（税抜）／3,300円（税込）です。初期費用はかかりません。</li>
+      <li>※お支払いはクレジットカードまたは請求書払い（銀行振込）からお選びいただけます。</li>
+    </ul>
+
+    <div class="cmp-wrap" role="region" aria-label="プラン別の機能比較表" tabindex="0">
+      <table class="cmp">
+        <caption>プラン別の機能比較<small>○：利用できる　△：一部のみ利用できる　－：利用できない</small></caption>
+        <thead><tr><th scope="col">機能</th><th scope="col">ライト</th><th scope="col" class="rec">スタンダード</th><th scope="col">プロフェッショナル</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">打刻（スマホ・PC・ICカード）</th><td><span class="mk mk--o" aria-hidden="true">○</span><span class="vh">利用できる</span></td><td class="rec"><span class="mk mk--o" aria-hidden="true">○</span><span class="vh">利用できる</span></td><td><span class="mk mk--o" aria-hidden="true">○</span><span class="vh">利用できる</span></td></tr>
+          <tr><th scope="row">勤怠の自動集計・CSV出力</th><td><span class="mk mk--o" aria-hidden="true">○</span><span class="vh">利用できる</span></td><td class="rec"><span class="mk mk--o" aria-hidden="true">○</span><span class="vh">利用できる</span></td><td><span class="mk mk--o" aria-hidden="true">○</span><span class="vh">利用できる</span></td></tr>
+          <tr><th scope="row">有給休暇の管理（年5日の取得義務）</th><td><span class="mk mk--o" aria-hidden="true">○</span><span class="vh">利用できる</span></td><td class="rec"><span class="mk mk--o" aria-hidden="true">○</span><span class="vh">利用できる</span></td><td><span class="mk mk--o" aria-hidden="true">○</span><span class="vh">利用できる</span></td></tr>
+          <tr><th scope="row">申請・承認ワークフロー</th><td><span class="mk mk--t" aria-hidden="true">△</span><span class="vh">一部のみ</span><small>打刻修正のみ</small></td><td class="rec"><span class="mk mk--o" aria-hidden="true">○</span><span class="vh">利用できる</span></td><td><span class="mk mk--o" aria-hidden="true">○</span><span class="vh">利用できる</span></td></tr>
+          <tr><th scope="row">シフト作成・管理</th><td><span class="mk mk--n" aria-hidden="true">－</span><span class="vh">利用できない</span></td><td class="rec"><span class="mk mk--o" aria-hidden="true">○</span><span class="vh">利用できる</span></td><td><span class="mk mk--o" aria-hidden="true">○</span><span class="vh">利用できる</span></td></tr>
+          <tr><th scope="row">残業時間アラート</th><td><span class="mk mk--n" aria-hidden="true">－</span><span class="vh">利用できない</span></td><td class="rec"><span class="mk mk--o" aria-hidden="true">○</span><span class="vh">利用できる</span></td><td><span class="mk mk--o" aria-hidden="true">○</span><span class="vh">利用できる</span></td></tr>
+          <tr><th scope="row">給与計算ソフト連携</th><td><span class="mk mk--n" aria-hidden="true">－</span><span class="vh">利用できない</span></td><td class="rec"><span class="mk mk--o" aria-hidden="true">○</span><span class="vh">利用できる</span></td><td><span class="mk mk--o" aria-hidden="true">○</span><span class="vh">利用できる</span></td></tr>
+          <tr><th scope="row">IPアドレス制限・SSO（SAML認証）</th><td><span class="mk mk--n" aria-hidden="true">－</span><span class="vh">利用できない</span></td><td class="rec"><span class="mk mk--t" aria-hidden="true">△</span><span class="vh">一部のみ</span><small>IPアドレス制限のみ</small></td><td><span class="mk mk--o" aria-hidden="true">○</span><span class="vh">利用できる</span></td></tr>
+          <tr><th scope="row">API連携</th><td><span class="mk mk--n" aria-hidden="true">－</span><span class="vh">利用できない</span></td><td class="rec"><span class="mk mk--n" aria-hidden="true">－</span><span class="vh">利用できない</span></td><td><span class="mk mk--o" aria-hidden="true">○</span><span class="vh">利用できる</span></td></tr>
+          <tr><th scope="row">サポート</th><td>メール</td><td class="rec">メール・チャット</td><td>専任担当・電話</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- flow -->
+<section class="sec" id="flow" aria-labelledby="flow-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="sec-en">FLOW</p>
+      <h2 id="flow-h">導入の流れ</h2>
+      <p class="sec-lead">専任の担当者が、就業規則の確認から初期設定までお手伝いします。</p>
+    </div>
+    <ol class="flow">
+      <li><span class="step">STEP 1</span><span class="flow-ic"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg></span><h3>お問い合わせ</h3><p>フォームまたはお電話でお気軽にご連絡ください。資料もすぐにお送りします。</p></li>
+      <li><span class="step">STEP 2</span><span class="flow-ic"><svg class="ic" aria-hidden="true"><use href="#i-chat"/></svg></span><h3>オンライン相談・デモ</h3><p>現在の勤怠管理の方法や課題をうかがい、実際の画面をお見せします。</p></li>
+      <li><span class="step">STEP 3</span><span class="flow-ic"><svg class="ic" aria-hidden="true"><use href="#i-people"/></svg></span><h3>初期設定</h3><p>勤務ルールや従業員データの登録を、担当者が一緒に進めます。</p></li>
+      <li><span class="step">STEP 4</span><span class="flow-ic"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></span><h3>運用開始</h3><p>社員向けの使い方資料もご用意。運用開始後もサポートが続きます。</p></li>
+    </ol>
+    <p class="flow-note">お申し込みから運用開始まで、最短<b class="num">5</b>営業日<small>※就業ルールの内容により異なります</small></p>
+  </div>
+</section>
+
+<!-- security -->
+<section class="sec sec--tint" id="security" aria-labelledby="secu-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="sec-en">SECURITY &amp; SUPPORT</p>
+      <h2 id="secu-h">セキュリティ・サポート体制</h2>
+      <p class="sec-lead">大切な従業員の情報を、国内のデータセンターで安全にお預かりします。</p>
+    </div>
+    <div class="sec-grid">
+      <div class="sec-badges">
+        <svg class="shield" viewBox="0 0 180 180" aria-hidden="true">
+          <circle cx="90" cy="92" r="82" fill="#e3ecfb"/>
+          <path d="M90 26l52 20v38c0 32-22 58-52 68-30-10-52-36-52-68V46z" fill="#1560d4"/>
+          <path d="M90 40l40 15v29c0 25-17 45-40 53z" fill="#0d47a8" opacity=".35"/>
+          <rect x="68" y="82" width="44" height="36" rx="6" fill="#fff"/>
+          <path d="M76 82v-8a14 14 0 0 1 28 0v8" fill="none" stroke="#fff" stroke-width="6"/>
+          <circle cx="90" cy="97" r="5" fill="#1560d4"/><path d="M90 100v8" stroke="#1560d4" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="146" cy="46" r="16" fill="#ffc94a"/><path d="M139 46l5 5 9-10" fill="none" stroke="#7a4b00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="cert">
+          <span><b>ISMS認証</b>ISO/IEC 27001<br>取得</span>
+          <span><b>プライバシー<br>マーク</b>取得</span>
+        </div>
+        <p class="cert-note">※認証の表示はデザイン見本です。</p>
+      </div>
+      <ul class="sec-list">
+        <li><svg class="ic" aria-hidden="true"><use href="#i-server"/></svg><div><b>国内データセンター</b><span>データは国内の複数拠点に暗号化して保管し、毎日バックアップしています。</span></div></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-key"/></svg><div><b>SSO・IPアドレス制限</b><span>SAML認証によるシングルサインオンと、接続元IPアドレスの制限に対応。</span></div></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg><div><b>2段階認証・権限設定</b><span>管理者ごとに閲覧・編集できる範囲を細かく設定できます。</span></div></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-list"/></svg><div><b>操作ログの保存</b><span>すべての操作履歴を5年間保存し、CSVで出力できます。</span></div></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg><div><b>セキュリティチェックシート対応</b><span>導入前の社内審査に必要な資料と回答をご用意しています。</span></div></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-headset"/></svg><div><b>電話・チャット・メールサポート</b><span>平日9:00〜18:00、専門のスタッフがお答えします。</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- faq -->
+<section class="sec" id="faq" aria-labelledby="faq-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="sec-en">FAQ</p>
+      <h2 id="faq-h">よくあるご質問</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq" open><summary><span class="qa q" aria-hidden="true">Q</span>無料トライアルが終わると、自動で有料プランに切り替わりますか？</summary>
+        <div class="faq-a"><span class="qa a" aria-hidden="true">A</span><p>いいえ、自動では切り替わりません。お客様がお申し込みの手続きをされるまで、料金は一切発生しません。トライアル中に登録したデータは、そのまま本契約に引き継げます。</p></div></details>
+      <details class="faq"><summary><span class="qa q" aria-hidden="true">Q</span>パート・アルバイトの勤怠も管理できますか？</summary>
+        <div class="faq-a"><span class="qa a" aria-hidden="true">A</span><p>はい。雇用形態ごとに勤務ルールを設定できます。シフト制、変形労働時間制、フレックスタイム制にも対応しています。</p></div></details>
+      <details class="faq"><summary><span class="qa q" aria-hidden="true">Q</span>今使っている給与計算ソフトと連携できますか？</summary>
+        <div class="faq-a"><span class="qa a" aria-hidden="true">A</span><p>主要な給与計算ソフト向けの出力形式を用意しています。お使いのソフトが対応しているかは、資料またはオンライン相談でご確認ください。</p></div></details>
+      <details class="faq"><summary><span class="qa q" aria-hidden="true">Q</span>ICカードでの打刻には、専用の機器が必要ですか？</summary>
+        <div class="faq-a"><span class="qa a" aria-hidden="true">A</span><p>市販のICカードリーダーとパソコン、またはタブレットがあれば打刻できます。交通系ICカードや社員証をそのままお使いいただけます。</p></div></details>
+      <details class="faq"><summary><span class="qa q" aria-hidden="true">Q</span>支払い方法を教えてください。</summary>
+        <div class="faq-a"><span class="qa a" aria-hidden="true">A</span><p>クレジットカード払いと請求書払い（銀行振込）からお選びいただけます。請求書払いは月末締め、翌月末払いです。</p></div></details>
+      <details class="faq"><summary><span class="qa q" aria-hidden="true">Q</span>解約したい場合はどうすればよいですか？</summary>
+        <div class="faq-a"><span class="qa a" aria-hidden="true">A</span><p>管理画面からいつでも解約のお手続きができます。解約金はかかりません。解約月の末日まではご利用いただけ、勤怠データはCSVで出力して保存できます。</p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- closing cta -->
+<section class="closing" aria-labelledby="closing-h">
+  <div class="wrap">
+    <h2 id="closing-h">まずは30日間、無料でお試しください</h2>
+    <p class="closing-lead">導入のご相談や見積もりのご依頼も、お気軽にどうぞ。</p>
+    <div class="cta3">
+      <div>
+        <h3><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>資料ダウンロード</h3>
+        <p>機能・料金・導入事例を1冊にまとめた製品資料をお送りします。</p>
+        <a class="btn btn--outline" href="#contact">資料をダウンロードする</a>
+      </div>
+      <div>
+        <h3><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg>無料トライアル</h3>
+        <p>すべての機能を30日間お試しいただけます。カード登録は不要です。</p>
+        <a class="btn btn--cta" href="#contact">無料で試す</a>
+      </div>
+      <div>
+        <h3><svg class="ic" aria-hidden="true"><use href="#i-headset"/></svg>お電話でのご相談</h3>
+        <p>導入や料金について、担当者が直接お答えします。</p>
+        <a class="tel-big" href="tel:0120000000"><svg class="ic" aria-hidden="true"><use href="#i-tel"/></svg>0120-000-000</a>
+        <p class="tel-hours">受付時間 平日9:00〜18:00（土日祝・年末年始を除く）</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- form -->
+<section class="form-sec" id="contact" aria-labelledby="form-h">
+  <div class="wrap form-grid">
+    <aside class="doc" aria-label="資料の内容">
+      <div class="doc-cover" aria-hidden="true">
+        <small>SERVICE GUIDE</small>
+        <b>はたらくログ<br>サービス紹介資料</b>
+        <p>2026年10月版　全24ページ</p>
+        <svg viewBox="0 0 200 120"><rect x="0" y="40" width="200" height="80" rx="8" fill="#edf3fe"/><g fill="#9dbdf0"><rect x="16" y="80" width="18" height="28" rx="3"/><rect x="42" y="68" width="18" height="40" rx="3"/><rect x="68" y="74" width="18" height="34" rx="3"/></g><rect x="94" y="58" width="18" height="50" rx="3" fill="#1560d4"/><circle cx="160" cy="62" r="34" fill="#ffc94a"/><path d="M160 62V28a34 34 0 0 1 32 22z" fill="#cc4b0c"/><circle cx="160" cy="62" r="14" fill="#fff"/></svg>
+      </div>
+      <h3>資料でわかること</h3>
+      <ul class="checks">
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>はたらくログの機能と画面イメージ</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>プラン別の料金と費用の目安</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>業種別の導入事例と効果</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>導入までのスケジュール</li>
+      </ul>
+      <p class="doc-note">※ご入力いただいた情報は、資料の送付と製品のご案内にのみ利用します。営業目的のしつこいお電話はいたしません。</p>
+    </aside>
+
+    <div class="form-card">
+      <h2 id="form-h">資料請求・無料トライアルのお申し込み</h2>
+      <p class="form-sub">1分ほどで入力できます。送信後、資料のダウンロード先をメールでお送りします。</p>
+      <ol class="stepper" aria-label="お申し込みの手順">
+        <li aria-current="step">入力</li>
+        <li>確認</li>
+        <li>完了</li>
+      </ol>
+
+      <form id="lead-form" class="jp-form" novalidate>
+        <p class="form-note">※<span class="jp-req">必須</span>の項目は必ず入力してください。</p>
+        <div id="err-summary" class="err-summary" tabindex="-1" role="alert" hidden></div>
+
+        <div class="frow">
+          <label class="flabel" for="company">会社名<span class="jp-req">必須</span></label>
+          <div class="ffield"><input id="company" name="company" autocomplete="organization" placeholder="例：株式会社ミライワークス" required aria-describedby="company-err"><p class="jp-error" id="company-err" hidden></p></div>
+        </div>
+        <div class="frow">
+          <label class="flabel" for="dept">部署名<span class="jp-opt">任意</span></label>
+          <div class="ffield"><input id="dept" name="dept" placeholder="例：人事部"></div>
+        </div>
+        <div class="frow" role="group" aria-labelledby="name-lbl">
+          <span class="flabel" id="name-lbl">お名前<span class="jp-req">必須</span></span>
+          <div class="ffield">
+            <div class="pair">
+              <label><span>姓</span><input id="sei" name="family-name" autocomplete="family-name" placeholder="例：山田" required aria-describedby="name-err"></label>
+              <label><span>名</span><input id="mei" name="given-name" autocomplete="given-name" placeholder="例：花子" required aria-describedby="name-err"></label>
+            </div>
+            <p class="jp-error" id="name-err" hidden></p>
+          </div>
+        </div>
+        <div class="frow" role="group" aria-labelledby="kana-lbl">
+          <span class="flabel" id="kana-lbl">フリガナ<span class="jp-req">必須</span></span>
+          <div class="ffield">
+            <div class="pair">
+              <label><span>セイ</span><input id="kana-sei" name="family-name-phonetic" placeholder="例：ヤマダ" required aria-describedby="kana-err kana-hint"></label>
+              <label><span>メイ</span><input id="kana-mei" name="given-name-phonetic" placeholder="例：ハナコ" required aria-describedby="kana-err kana-hint"></label>
+            </div>
+            <p class="hint" id="kana-hint">お名前の入力に合わせて自動で入ります。ひらがなで入力してもカタカナに変換します。</p>
+            <p class="jp-error" id="kana-err" hidden></p>
+          </div>
+        </div>
+        <div class="frow">
+          <label class="flabel" for="email">メールアドレス<span class="jp-req">必須</span></label>
+          <div class="ffield"><input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="例：hanako@example.com" required aria-describedby="email-err"><p class="jp-error" id="email-err" hidden></p></div>
+        </div>
+        <div class="frow">
+          <label class="flabel" for="tel">電話番号<span class="jp-req">必須</span></label>
+          <div class="ffield"><input id="tel" name="tel" type="tel" autocomplete="tel" inputmode="tel" placeholder="例：03-0000-0000" required aria-describedby="tel-hint tel-err"><p class="hint" id="tel-hint">ハイフンのあり・なし、全角数字のどちらでも入力できます。</p><p class="jp-error" id="tel-err" hidden></p></div>
+        </div>
+        <div class="frow">
+          <label class="flabel" for="employees">従業員数<span class="jp-req">必須</span></label>
+          <div class="ffield">
+            <select id="employees" name="employees" required aria-describedby="employees-err">
+              <option value="">選択してください</option>
+              <option>1〜9名</option><option>10〜29名</option><option>30〜99名</option><option>100〜299名</option><option>300〜999名</option><option>1,000名以上</option>
+            </select>
+            <p class="jp-error" id="employees-err" hidden></p>
+          </div>
+        </div>
+        <div class="frow">
+          <label class="flabel" for="note">ご質問・ご要望<span class="jp-opt">任意</span></label>
+          <div class="ffield"><textarea id="note" name="note" placeholder="例：パート社員のシフト管理も相談したい"></textarea></div>
+        </div>
+
+        <div class="privacy">
+          <div class="privacy-box" tabindex="0" role="region" aria-label="個人情報の取り扱いについて">
+            <h3>個人情報の取り扱いについて</h3>
+            <p>株式会社ミライワークス（以下「当社」）は、本フォームでお預かりした個人情報を、資料の送付、製品・サービスのご案内、お問い合わせへの回答のために利用します。</p>
+            <p>法令に基づく場合を除き、ご本人の同意なく第三者に提供することはありません。個人情報の開示・訂正・利用停止のご請求は、下記の窓口までご連絡ください。</p>
+            <p>個人情報に関するお問い合わせ窓口：株式会社ミライワークス 個人情報保護管理者（privacy@hataraku-log.example）</p>
+            <p>詳しくは<a href="#privacy">プライバシーポリシー</a>をご覧ください。</p>
+          </div>
+          <label class="agree"><input type="checkbox" id="agree" name="agree" required aria-describedby="agree-err">「個人情報の取り扱いについて」に同意する</label>
+          <p class="jp-error" id="agree-err" hidden></p>
+        </div>
+        <div class="submit"><button class="btn btn--cta btn--lg" type="submit">入力内容を確認する</button></div>
+      </form>
+
+      <div id="confirm" hidden>
+        <h3 class="pane-h" id="confirm-h" tabindex="-1">入力内容の確認</h3>
+        <p class="form-sub">以下の内容でよろしければ「送信する」を押してください。</p>
+        <dl class="confirm-list" id="confirm-list"></dl>
+        <div class="btn-row">
+          <button class="btn btn--ghost" type="button" id="back">修正する</button>
+          <button class="btn btn--cta" type="button" id="send">送信する</button>
+        </div>
+      </div>
+
+      <div id="done" class="done" hidden>
+        <svg viewBox="0 0 88 88" aria-hidden="true"><circle cx="44" cy="44" r="42" fill="#e3f6ef"/><circle cx="44" cy="44" r="30" fill="#28a98c"/><path d="M31 45l9 9 17-18" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3 class="pane-h" id="done-h" tabindex="-1">お申し込みありがとうございました</h3>
+        <p><span id="done-name"></span>様、資料請求を受け付けました。<br>ご入力のメールアドレスに、資料のダウンロード先をお送りしています。</p>
+        <p class="contact-time">2営業日以内に、担当者よりご連絡いたします</p>
+        <p><small>※メールが届かない場合は、迷惑メールフォルダをご確認いただくか、お電話（0120-000-000）でお問い合わせください。</small></p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="ft">
+  <div class="wrap">
+    <div class="ft-top">
+      <div>
+        <a class="logo" href="#top"><svg width="32" height="32" viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="10" fill="#1560d4"/><circle cx="18" cy="18" r="10" fill="none" stroke="#fff" stroke-width="2.6"/><path d="M13.6 18.2l3.2 3.2 6-6.4" fill="none" stroke="#ffc94a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="logo-txt"><b>はたらくログ</b><span>勤怠管理クラウド</span></span></a>
+        <address class="ft-co"><b>運営会社：株式会社ミライワークス</b><br>〒103-0000 東京都中央区みらい橋2-4-1 ミライワークスビル8階<br>TEL 03-0000-0000（受付時間 平日9:00〜18:00）</address>
+      </div>
+      <div>
+        <h3>製品</h3>
+        <ul><li><a href="#features">機能一覧</a></li><li><a href="#price">料金プラン</a></li><li><a href="#cases">導入事例</a></li><li><a href="#security">セキュリティ</a></li><li><a href="#faq">よくあるご質問</a></li></ul>
+      </div>
+      <div>
+        <h3>サポート</h3>
+        <ul><li><a href="#contact">資料ダウンロード</a></li><li><a href="#contact">お問い合わせ</a></li><li><a href="#top">ヘルプセンター</a></li><li><a href="#top">サービス稼働状況</a></li><li><a href="#top">お知らせ</a></li></ul>
+      </div>
+      <div>
+        <h3>企業情報</h3>
+        <ul><li><a href="#top">会社概要</a></li><li><a href="#top">情報セキュリティ方針</a></li><li><a href="#top">採用情報</a></li><li><a href="#top">パートナー募集</a></li></ul>
+      </div>
+    </div>
+    <div class="ft-legal">
+      <nav aria-label="規約とポリシー"><a id="privacy" href="#privacy">プライバシーポリシー</a><a href="#top">利用規約</a><a href="#top">特定商取引法に基づく表記</a><a href="#top">外部送信ポリシー</a><a href="#top">サイトマップ</a></nav>
+      <small>※掲載している社名・数値・事例はすべて架空のサンプルです。　&copy; 2026 Mirai Works Inc.</small>
+    </div>
+  </div>
+</footer>
+
+<div class="sp-bar">
+  <a class="btn btn--outline" href="#contact">資料ダウンロード</a>
+  <a class="btn btn--cta" href="#contact">無料で試す</a>
+</div>
+<a class="pagetop" href="#top" aria-label="ページの先頭へ"><svg class="ic" aria-hidden="true"><use href="#i-up"/></svg>TOP</a>
+
+<script>
+// ==== japanify.js: begin ====
+// japanify.js: small helpers every Japanese frontend needs. No dependencies.
+// Classic script:  <script src="japanify.js"><\/script>  then  japanify.imeSafeEnter(input, send)
+// ES module:       import './japanify.js'; const { digits, longDate } = globalThis.japanify;
+// Single-file page: paste this file into a <script> tag as is.
+// Check:           node japanify.js --self-test
+(function () {
+  const PREFS = '北海道,青森県,岩手県,宮城県,秋田県,山形県,福島県,茨城県,栃木県,群馬県,埼玉県,千葉県,東京都,神奈川県,新潟県,富山県,石川県,福井県,山梨県,長野県,岐阜県,静岡県,愛知県,三重県,滋賀県,京都府,大阪府,兵庫県,奈良県,和歌山県,鳥取県,島根県,岡山県,広島県,山口県,徳島県,香川県,愛媛県,高知県,福岡県,佐賀県,長崎県,熊本県,大分県,宮崎県,鹿児島県,沖縄県'.split(',');
+
+  // NFKC folds full-width digits, Latin and half-width kana. It does not fold the dash family
+  // (hyphen U+2010 to bar U+2015, minus U+2212, katakana long mark U+30FC), so map those to "-".
+  const DASHES = /[\u2010-\u2015\u2212\u30fc\uff70]/g;
+  const nfkc = (v) => String(v ?? '').normalize('NFKC');
+  const digits = (v) => nfkc(v).replace(/\D/g, '');                       // store and compare
+  const telDisplay = (v) => nfkc(v).replace(DASHES, '-').replace(/[^\d-]/g, ''); // keep the user's hyphens
+  const email = (v) => nfkc(v).trim();
+  const toKatakana = (v) => nfkc(v).replace(/[\u3041-\u3096]/g, (c) => String.fromCharCode(c.charCodeAt(0) + 0x60));
+  const isKatakana = (v) => /^[\u30a1-\u30f6\u30fc\s\u3000]+$/.test(toKatakana(v));
+  const isTel = (v) => /^0\d{9,10}$/.test(digits(v));
+  const isZip = (v) => /^\d{7}$/.test(digits(v));
+
+  // Enter that confirms an IME conversion must not submit. Safari fires compositionend first, so also check 229.
+  // A plain <form> with a submit button is already safe; use this only for custom Enter handlers.
+  function imeSafeEnter(el, onEnter) {
+    el.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' || e.isComposing || e.keyCode === 229) return;
+      e.preventDefault();
+      onEnter(e);
+    });
+  }
+
+  function fillPrefSelect(select, placeholder = '選択してください') {
+    select.innerHTML = `<option value="">${placeholder}</option>` + PREFS.map((p) => `<option value="${p}">${p}</option>`).join('');
+  }
+
+  // 郵便番号 -> 都道府県 / 市区町村 via zipcloud. Never blocks the form if the lookup fails.
+  function bindPostalCode(zipInput, { pref, city, street }) {
+    const run = async () => {
+      if (!isZip(zipInput.value)) return;
+      try {
+        const res = await fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${digits(zipInput.value)}`).then((r) => r.json());
+        const a = res?.results?.[0];
+        if (!a) return;
+        pref.value = a.address1;
+        city.value = a.address2 + a.address3;
+        pref.dispatchEvent(new Event('change', { bubbles: true }));
+        city.dispatchEvent(new Event('input', { bubbles: true }));
+        street?.focus();
+      } catch { /* offline or API down: the user types the address */ }
+    };
+    zipInput.addEventListener('input', () => isZip(zipInput.value) && run());
+    zipInput.addEventListener('blur', run);
+  }
+
+  // Accept full-width input and fix it on blur instead of rejecting it. Submit digits(tel) to the server.
+  function normalizeOnBlur(form) {
+    const on = (sel, fn) => form.querySelectorAll(sel).forEach((el) => el.addEventListener('blur', () => { el.value = fn(el.value); }));
+    on('input[type=tel]', telDisplay);
+    on('[autocomplete=postal-code],[name=postal-code]', digits);
+    on('input[type=email]', email);
+    on('[name$=phonetic]', toKatakana);
+  }
+
+  const TZ = { timeZone: 'Asia/Tokyo' };
+  const parts = (d, o, loc = 'ja-JP') => Object.fromEntries(new Intl.DateTimeFormat(loc, { ...TZ, ...o }).formatToParts(d).map((x) => [x.type, x.value]));
+  const longDate = (d) => { const p = parts(d, { year: 'numeric', month: 'numeric', day: 'numeric', weekday: 'short' }); return `${p.year}年${p.month}月${p.day}日（${p.weekday}）`; };
+  const slashDate = (d) => { const p = parts(d, { year: 'numeric', month: '2-digit', day: '2-digit' }); return `${p.year}/${p.month}/${p.day}`; };
+  const shortDate = (d) => { const p = parts(d, { month: 'numeric', day: 'numeric', weekday: 'short' }); return `${p.month}/${p.day}(${p.weekday})`; };
+  const wareki = (d) => new Intl.DateTimeFormat('ja-JP-u-ca-japanese', { ...TZ, era: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(d);
+  const weekdayClass = (d) => ({ 土: 'jp-sat', 日: 'jp-sun' })[parts(d, { weekday: 'short' }).weekday] || '';
+
+  const yen = (n) => `${Math.round(n).toLocaleString('ja-JP')}円`;
+  const taxIncluded = (n, rate = 0.1) => Math.floor(n * (1 + rate)); // 8% (軽減税率) for food, drink and newspapers
+  const compact = (n) => new Intl.NumberFormat('ja-JP', { notation: 'compact', maximumFractionDigits: 1 }).format(n); // 1.2万, 3.4億
+
+  const api = { PREFS, digits, telDisplay, email, toKatakana, isKatakana, isTel, isZip, imeSafeEnter, fillPrefSelect, bindPostalCode, normalizeOnBlur, longDate, slashDate, shortDate, wareki, weekdayClass, yen, taxIncluded, compact };
+  globalThis.japanify = api;
+
+  if (typeof process !== 'undefined' && process.argv?.includes('--self-test')) {
+    let failed = 0;
+    const eq = (a, b) => { if (a !== b) { failed++; console.error(`FAIL: ${a} !== ${b}`); } };
+    eq(digits('０９０－１２３４－５６７８'), '09012345678');
+    eq(telDisplay('０９０ー１２３４ー５６７８'), '090-1234-5678');
+    eq(isTel('090-1234-5678'), true);
+    eq(isZip('１００－０００１'), true);
+    eq(email(' ｔａｒｏ＠ｅｘａｍｐｌｅ．ｃｏｍ '), 'taro@example.com');
+    eq(toKatakana('やまだ ﾀﾛｳ'), 'ヤマダ タロウ');
+    eq(isKatakana('やまだ　たろう'), true);
+    eq(isKatakana('山田'), false);
+    const d = new Date('2026-10-14T03:00:00Z');
+    eq(longDate(d), '2026年10月14日（水）');
+    eq(slashDate(d), '2026/10/14');
+    eq(shortDate(d), '10/14(水)');
+    eq(wareki(d), '令和8年10月14日');
+    eq(weekdayClass(new Date('2026-10-17T03:00:00Z')), 'jp-sat');
+    eq(yen(taxIncluded(1800)), '1,980円');
+    eq(yen(taxIncluded(1000, 0.08)), '1,080円');
+    eq(compact(123456789), '1.2億');
+    eq(PREFS.length, 47);
+    console.log(failed ? `self-test: ${failed} failure(s)` : 'self-test passed');
+    process.exit(failed ? 1 : 0);
+  }
+})();
+// ==== japanify.js: end ====
+</script>
+<script>
+// ===== page =====
+(() => {
+const { digits, telDisplay, email: normEmail, toKatakana, isKatakana, isTel, imeSafeEnter, normalizeOnBlur } = japanify;
+
+// mobile menu
+const menuBtn = document.querySelector('.menu-btn');
+const gnav = document.getElementById('gnav');
+menuBtn.addEventListener('click', () => {
+  const open = menuBtn.getAttribute('aria-expanded') !== 'true';
+  menuBtn.setAttribute('aria-expanded', open);
+  menuBtn.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+  menuBtn.querySelector('use').setAttribute('href', open ? '#i-close' : '#i-menu');
+  gnav.classList.toggle('is-open', open);
+});
+gnav.addEventListener('click', (e) => { if (e.target.closest('a') && gnav.classList.contains('is-open')) menuBtn.click(); });
+// ページトップ: show only after the first screen so it never covers the hero
+const pageTop = document.querySelector('.pagetop');
+const onScroll = () => pageTop.classList.toggle('is-off', scrollY < 400);
+addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+
+// lead form: 入力 → 確認 → 完了
+const form = document.getElementById('lead-form');
+const el = (n) => form.elements[n];
+const val = (n) => el(n).value.trim();
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// 全角 input is accepted and fixed on blur: tel keeps the user's hyphens, email and kana are folded (NFKC)
+normalizeOnBlur(form);
+
+// フリガナ自動入力: keep the hiragana reading the IME shows before conversion.
+// ponytail: covers the common IME flow; autofill and paste skip it, which is why the kana field stays editable.
+function autoKana(src, dst) {
+  let reading = '';
+  src.addEventListener('compositionupdate', (e) => { if (/^[ぁ-ゖー\s]*$/.test(e.data)) reading = e.data; });
+  src.addEventListener('compositionend', () => { if (!dst.dataset.edited && reading) dst.value += toKatakana(reading); reading = ''; });
+  src.addEventListener('input', () => { if (!src.value && !dst.dataset.edited) dst.value = ''; });
+  dst.addEventListener('input', () => { dst.dataset.edited = '1'; });
+}
+autoKana(el('family-name'), el('family-name-phonetic'));
+autoKana(el('given-name'), el('given-name-phonetic'));
+
+const RULES = [
+  { id: 'company', label: '会社名', fields: ['company'], test: () => val('company') ? '' : '会社名を入力してください。' },
+  { id: 'name', label: 'お名前', fields: ['family-name', 'given-name'], test: () => !val('family-name') ? 'お名前（姓）を入力してください。' : !val('given-name') ? 'お名前（名）を入力してください。' : '' },
+  { id: 'kana', label: 'フリガナ', fields: ['family-name-phonetic', 'given-name-phonetic'], test: () => {
+    const a = val('family-name-phonetic'), b = val('given-name-phonetic');
+    if (!a || !b) return 'フリガナ（セイ・メイ）を入力してください。';
+    return isKatakana(a + b) ? '' : 'フリガナはカタカナで入力してください。';
+  } },
+  { id: 'email', label: 'メールアドレス', fields: ['email'], test: () => !val('email') ? 'メールアドレスを入力してください。' : EMAIL.test(normEmail(val('email'))) ? '' : 'メールアドレスの形式が正しくありません（例：hanako@example.com）。' },
+  { id: 'tel', label: '電話番号', fields: ['tel'], test: () => !val('tel') ? '電話番号を入力してください。' : isTel(val('tel')) ? '' : '電話番号は0から始まる10桁または11桁の数字で入力してください。' },
+  { id: 'employees', label: '従業員数', fields: ['employees'], test: () => val('employees') ? '' : '従業員数を選択してください。' },
+  { id: 'agree', label: '個人情報の取り扱い', fields: ['agree'], test: () => el('agree').checked ? '' : '「個人情報の取り扱いについて」に同意してください。' },
+];
+
+function show(rule, msg) {
+  const box = document.getElementById(`${rule.id}-err`);
+  box.textContent = msg;
+  box.hidden = !msg;
+  rule.fields.forEach((n) => el(n).setAttribute('aria-invalid', msg ? 'true' : 'false'));
+  return msg;
+}
+
+// validate a group once every field in it has been left once, then live
+const touched = new Set();
+RULES.forEach((rule) => rule.fields.forEach((n) => {
+  const field = el(n);
+  const run = () => { touched.add(n); if (rule.fields.every((f) => touched.has(f))) show(rule, rule.test()); };
+  field.addEventListener(field.type === 'checkbox' || field.tagName === 'SELECT' ? 'change' : 'blur', run);
+}));
+
+// Enter in a text field moves to the next field instead of sending a half-filled form (IME-safe)
+const order = [...form.querySelectorAll('input:not([type=checkbox]),select,textarea')];
+form.querySelectorAll('input:not([type=checkbox])').forEach((i) => imeSafeEnter(i, () => order[order.indexOf(i) + 1]?.focus()));
+
+const summary = document.getElementById('err-summary');
+const steps = document.querySelectorAll('.stepper li');
+const panes = { input: form, confirm: document.getElementById('confirm'), done: document.getElementById('done') };
+function go(step) {
+  const idx = ['input', 'confirm', 'done'].indexOf(step);
+  Object.entries(panes).forEach(([k, p]) => { p.hidden = k !== step; });
+  steps.forEach((li, i) => { li.classList.toggle('is-done', i < idx); i === idx ? li.setAttribute('aria-current', 'step') : li.removeAttribute('aria-current'); });
+  document.querySelector('.stepper').scrollIntoView({ block: 'start' });
+  const h = step === 'confirm' ? document.getElementById('confirm-h') : step === 'done' ? document.getElementById('done-h') : null;
+  (h || el('company')).focus({ preventScroll: true });
+}
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  form.querySelectorAll('input[type=tel]').forEach((i) => { i.value = telDisplay(i.value); });
+  form.querySelectorAll('input[type=email]').forEach((i) => { i.value = normEmail(i.value); });
+  form.querySelectorAll('[name$=phonetic]').forEach((i) => { i.value = toKatakana(i.value); });
+  RULES.forEach((r) => r.fields.forEach((f) => touched.add(f)));
+  const errors = RULES.map((r) => [r, show(r, r.test())]).filter(([, m]) => m);
+  if (errors.length) {
+    summary.innerHTML = '';
+    const p = document.createElement('p');
+    p.textContent = `入力内容をご確認ください（${errors.length}件）`;
+    const ul = document.createElement('ul');
+    errors.forEach(([r, m]) => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = `#${el(r.fields[0]).id}`;
+      a.textContent = m;
+      a.addEventListener('click', (ev) => { ev.preventDefault(); el(r.fields[0]).focus(); });
+      li.append(a); ul.append(li);
+    });
+    summary.append(p, ul);
+    summary.hidden = false;
+    summary.focus();
+    return;
+  }
+  summary.hidden = true;
+  const rows = [
+    ['会社名', val('company')], ['部署名', val('dept') || '（未入力）'],
+    ['お名前', `${val('family-name')} ${val('given-name')}`], ['フリガナ', `${val('family-name-phonetic')} ${val('given-name-phonetic')}`],
+    ['メールアドレス', val('email')], ['電話番号', val('tel')],
+    ['従業員数', val('employees')], ['ご質問・ご要望', val('note') || '（未入力）'],
+  ];
+  const dl = document.getElementById('confirm-list');
+  dl.innerHTML = '';
+  rows.forEach(([k, v]) => { const d = document.createElement('div'); const dt = document.createElement('dt'); const dd = document.createElement('dd'); dt.textContent = k; dd.textContent = v; d.append(dt, dd); dl.append(d); });
+  go('confirm');
+});
+document.getElementById('back').addEventListener('click', () => go('input'));
+document.getElementById('send').addEventListener('click', () => {
+  // ponytail: demo page, nothing is sent. The payload stores the phone as digits only.
+  const payload = Object.fromEntries(new FormData(form));
+  payload.tel = digits(payload.tel);
+  console.info('送信データ（デモ）', payload);
+  document.getElementById('done-name').textContent = `${val('family-name')} ${val('given-name')}`;
+  go('done');
+});
+})();
+</script>
+</body>
+</html>
